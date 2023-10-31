@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { FileText, HelpCircle, Info, ChevronLeft, ChevronRight } from 'react-feather';
 import InterviewAILogo from './chat/InterviewAILogo';
 import WorkspaceSelection from './workspace/WorkspaceSelection';
-
+import QuestionNavigator from './question/QuestionNavigator';
+import QuestionBox from './question/QuestionBox';
 
 const Body: React.FC = () => {
     const [leftSize, setLeftSize] = useState(33);
@@ -35,35 +36,10 @@ const Body: React.FC = () => {
                   onClick={() => setSelectedBox(1)}
               >
               {/* Box 1 */}
-              <div className="bg-white rounded-lg overflow-hidden" style={{ flexBasis: `${leftSize}%` }}>
-              <div className="flex items-center p-1 bg-gray-50 justify-between"> {/* justify-between ensures elements are spaced between start and end */}
-
-                {/* Description button */}
-                <button className="flex text-gray-900 font-semibold text-xs items-center ml-2">
-                    <FileText className="w-4 h-4 mr-2" color="#3498db"/> {/* Feather icon for description */}
-                    Q1 - Financial Modelling
-                </button>
-
-                {/* Placeholder for label if you want to add any in between */}
-                {/* <h2 className="text-gray-500 text-xs">Question</h2> */}
-
-                {/* Navigation arrows */}
-                <div className="ml-4 flex items-center cursor-pointer hover:bg-gray-200 rounded transition-colors duration-300">
-                    {/* Previous arrow */}
-                    <div className="relative group p-2 cursor-pointer hover:bg-gray-300 rounded transition-colors duration-300">
-                        <ChevronLeft className="text-gray-600 w-4 h-4" />
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1 text-xs bg-black text-white p-1 mt-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">Previous Question</div>
-                    </div>
-
-                    {/* Next arrow */}
-                    <div className="relative group p-2 cursor-pointer hover:bg-gray-300 rounded transition-colors duration-300">
-                        <ChevronRight className="text-gray-600 w-4 h-4" />
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1 text-xs bg-black text-white p-1 mt-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">Next Question</div>
-                    </div>
-                </div>
-
-                </div>
-                  <div className="p-4">Box 1 Content</div>
+              <div className="bg-white rounded-lg" style={{ flexBasis: `${leftSize}%` }}>
+                <QuestionNavigator/>
+                <QuestionBox/>
+                  {/* <div className="p-4">Box 1 Content</div> */}
               </div>
               </div>
 
