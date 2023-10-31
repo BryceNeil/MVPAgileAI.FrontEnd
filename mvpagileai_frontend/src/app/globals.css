@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+
+/* Draggable Boxes Styles */
+/* In your styles.css or other CSS file */
+.resizer-container:hover .resizer-pill {
+  opacity: 0;
+}
+.resizer-container:hover .resizer-line-active {
+  display: block;
+  opacity: 1;
+}
+.resizer-pill {
+  opacity: 1;
+  transition: opacity 0.3s;  /* Optional: for smooth fade-out */
+}
+.resizer-line-active {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s;  /* Optional: for smooth fade-in */
+}
+
+
