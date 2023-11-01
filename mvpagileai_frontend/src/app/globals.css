@@ -55,3 +55,57 @@ body {
 .react-canvas-draw canvas {
   background-image: none !important;
 }
+
+
+
+/* Table Workspace - hansontable styles */
+/* Remove background and borders from row and column headers */
+
+
+
+/* Active column header */
+/* For column headers (X-axis) */
+
+.handsontable th {
+  color: #757575 !important;
+  background: transparent !important; 
+}
+
+
+/* Remove vertical borders for all cells including headers */
+.handsontable td, .handsontable th {
+  /* border-left: none !important; */
+  /* border-right: none !important; */
+}
+
+
+/* Since the vertical borders are removed, the horizontal borders between cells can appear double-sized. 
+ We can adjust the bottom border to make it look consistent */
+
+
+
+:root {
+  --handsontable-border-color: #f1f1f1; /* Adjust this value to change the border color */
+}
+
+/* Set horizontal borders to the defined color */
+.handsontable td, .handsontable th {
+  border-color: var(--handsontable-border-color) !important;
+}
+
+/* Adjust the bottom border to make it look consistent */
+.handsontable td {
+  border-bottom: 1px solid var(--handsontable-border-color) !important;
+}
+
+
+/* Set the text color for the cells to a lighter gray */
+.handsontable td {
+  color: #b0b0b0 !important; /* Adjust the gray color as per your preference */
+}
+
+/* Set the text color for the active cell editor to a lighter gray */
+.handsontable .handsontableInput {
+  color: #b0b0b0 !important; /* Adjust the gray color as per your preference */
+}
+

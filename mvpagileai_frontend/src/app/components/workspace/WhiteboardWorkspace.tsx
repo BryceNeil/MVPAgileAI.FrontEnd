@@ -6,11 +6,15 @@ import CanvasDraw from 'react-canvas-draw';
 
 interface WhiteboardToolsProps {
     setIsDrawing: React.Dispatch<React.SetStateAction<boolean>>;
-    setSelectedIcon: React.Dispatch<React.SetStateAction<any>>;
     selectedIcon: any;
+    setSelectedIcon: React.Dispatch<React.SetStateAction<any>>;
     setBrushColor: React.Dispatch<React.SetStateAction<string>>;
-    eraserSize: 'small' | 'medium' | 'large';  // <-- Add this
+    eraserSize: 'small' | 'medium' | 'large';
     setEraserSize: React.Dispatch<React.SetStateAction<'small' | 'medium' | 'large'>>;  // <-- Add this
+    textMode: boolean;
+    setTextMode: React.Dispatch<React.SetStateAction<boolean>>;
+    canvasRef: React.RefObject<any>;
+    handleCanvasClick: (e: React.MouseEvent) => void;
 }
 
 const WhiteboardTools: React.FC<WhiteboardToolsProps> = ({ 
@@ -19,15 +23,16 @@ const WhiteboardTools: React.FC<WhiteboardToolsProps> = ({
     selectedIcon, 
     setBrushColor,
     eraserSize,  // <-- Destructure this prop
-    setEraserSize  // <-- Destructure this prop
+    setEraserSize,  // <-- Destructure this prop
+    textMode,
+    setTextMode,
+    canvasRef,
+    handleCanvasClick,
 }) => {   // const [selectedIcon, setSelectedIcon] = useState(null);
     const [showEraserOptions, setShowEraserOptions] = useState(false); // State to toggle the eraser options
     const [selectedShape, setSelectedShape] = useState('square');
     const [showShapesOptions, setShowShapesOptions] = useState(false);
-    const [textMode, setTextMode] = useState(false);
-    const [texts, setTexts] = useState([]);
-    const [isTextToolActive, setIsTextToolActive] = useState(false);
-
+    const [textInputPos, setTextInputPos] = useState({ x: 0, y: 0 });
 
     const shapes = [
         { id: 'square', icon: '/fire.svg' },
@@ -36,19 +41,14 @@ const WhiteboardTools: React.FC<WhiteboardToolsProps> = ({
         // ... add more shapes as needed
       ];
 
-    
-      const handleCanvasClick = (e) => {
-        if (textMode) {
-            const rect = canvasRef.current.canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const text = prompt('Enter text:');
-            if (text) {
-                setTexts([...texts, { x, y, text }]);
-            }
-        }
-    };
-    
+    // const handleCanvasClick = (e: React.MouseEvent) => {
+    //     if (textMode) {
+    //         const rect = e.currentTarget.getBoundingClientRect();
+    //         const x = e.clientX - rect.left;
+    //         const y = e.clientY - rect.top;
+    //         setTextInputPos({ x, y });
+    //     }
+    // };
     
     const handleEraserSizeClick = (size: 'small' | 'medium' | 'large') => {
         setEraserSize(size);
@@ -95,32 +95,24 @@ const WhiteboardTools: React.FC<WhiteboardToolsProps> = ({
         if (iconName === 'pen') {
             setIsDrawing(true);
             setBrushColor('black'); 
+            setTextMode(false); // Add this
         } else if (iconName === 'eraser') {
             setIsDrawing(true);
             setBrushColor('white'); 
-            // canvasRef.current.lines = [];  // Clear the entire canvas (optional, use with caution) 
-        } else if (iconName === 'textHeight') {
+            setTextMode(false); // Add this
+        } 
+        else if (iconName === 'textHeight') {
             setIsDrawing(false);
             setTextMode(true);
         } else {
             setIsDrawing(false);
+            setTextMode(false); // Add this
         }
     };
-
-    {isTextToolActive && (
-        <div 
-            contentEditable={true} 
-            style={{ position: 'absolute', border: '1px solid black', minWidth: '100px', minHeight: '20px' }}
-            onBlur={(e) => {
-                // Logic to convert text to an image and draw it on the canvas
-                // (You might need a library or utility function to do this)
-                setIsTextToolActive(false); 
-            }}
-        ></div>
-    )}
+    
 
     return (
-        <div>
+        <div onClick={handleCanvasClick}>
             <div className="bg-gray-50 rounded m-4 px-1 py-2 mr-4 flex ">
                 <div className="flex flex-col space-y-2">
                     {/* Drawing Tools */}
@@ -196,6 +188,29 @@ const WhiteboardTools: React.FC<WhiteboardToolsProps> = ({
                     </div>
                 </div>
             </div>
+            {/* Text input logic */}
+            {textMode && (
+                <div
+                    contentEditable={true}
+                    style={{
+                        position: 'absolute',
+                        left: `${textInputPos.x}px`,
+                        top: `${textInputPos.y}px`,
+                        border: '1px solid black',
+                        minWidth: '100px',
+                        minHeight: '20px'
+                    }}
+                    onBlur={(e) => {
+                        const canvas = canvasRef.current;
+                        const ctx = canvas.getContext('2d');
+
+                        ctx.font = '16px Arial'; // You can customize the font style here
+                        ctx.fillText(e.currentTarget.innerText, textInputPos.x, textInputPos.y + 15); // +15 adjusts the y position to account for text height
+                        
+                        setTextMode(false);
+                    }}
+                ></div>
+            )}
         </div>
     );    
 };
@@ -203,19 +218,34 @@ const WhiteboardTools: React.FC<WhiteboardToolsProps> = ({
 const WhiteboardWorkspace: React.FC = () => {
     const [selectedIcon, setSelectedIcon] = useState(null);
     const [isDrawing, setIsDrawing] = useState(false);
-    const [brushColor, setBrushColor] = useState('black'); // <-- Add this state for brush color
-    const [eraserSize, setEraserSize] = useState<'small' | 'medium' | 'large'>('medium'); // <-- Add this
+    const [brushColor, setBrushColor] = useState('black'); 
+    const [eraserSize, setEraserSize] = useState<'small' | 'medium' | 'large'>('medium'); 
     const canvasRef = useRef(null);
     const containerRef = useRef(null);
 
     const [canvasWidth, setCanvasWidth] = useState(0);
     const [canvasHeight, setCanvasHeight] = useState(0);
 
+    const [textMode, setTextMode] = useState(false);
+    const [textInputPos, setTextInputPos] = useState({ x: 0, y: 0 });
+
     const eraserRadius = {
         small: 5,
         medium: 10,
         large: 20,
     };
+
+    const handleCanvasClick = (e: React.MouseEvent) => {
+        if (textMode) {
+            if (canvasRef.current && canvasRef.current.canvas) {
+                const rect = canvasRef.current.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                setTextInputPos({ x, y });
+            }
+        }
+    };
+    
 
     useEffect(() => {
         if (containerRef.current) {
@@ -226,8 +256,7 @@ const WhiteboardWorkspace: React.FC = () => {
 
     return (
         <div className="h-full w-full text-black flex">
-            <div className="flex-grow relative" ref={containerRef}>
-                {/* Conditional rendering of CanvasDraw based on the selected tool */}
+            <div className="flex-grow relative" ref={containerRef} onClick={handleCanvasClick}>
                 {isDrawing && (
                     <CanvasDraw
                         hideGrid={true}
@@ -239,16 +268,19 @@ const WhiteboardWorkspace: React.FC = () => {
                         lazyRadius={1}
                     />
                 )}
-                {/* Place WhiteboardTools on top of the canvas */}
                 <div className="absolute top-0 left-0 z-10">
-                <WhiteboardTools 
-                    setIsDrawing={setIsDrawing} 
-                    setSelectedIcon={setSelectedIcon}
-                    selectedIcon={selectedIcon}
-                    setBrushColor={setBrushColor}
-                    eraserSize={eraserSize}  // <-- Pass it as prop
-                    setEraserSize={setEraserSize}  // <-- Pass it as prop
-                />
+                    <WhiteboardTools 
+                        setIsDrawing={setIsDrawing} 
+                        setSelectedIcon={setSelectedIcon}
+                        selectedIcon={selectedIcon}
+                        setBrushColor={setBrushColor}
+                        eraserSize={eraserSize}
+                        setEraserSize={setEraserSize}
+                        textMode={textMode}
+                        setTextMode={setTextMode}
+                        canvasRef={canvasRef}
+                        handleCanvasClick={handleCanvasClick}
+                    />
                 </div>
             </div>
         </div>
