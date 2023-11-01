@@ -47,3 +47,11 @@ body {
 }
 
 
+/* React canvas no grid background for Whiteboard */
+.react-canvas-draw {
+  background: none !important;
+}
+
+.react-canvas-draw canvas {
+  background-image: none !important;
+}

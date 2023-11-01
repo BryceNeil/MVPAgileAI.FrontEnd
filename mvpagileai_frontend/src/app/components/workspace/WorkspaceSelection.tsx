@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { File, Edit2, Code, Plus } from 'react-feather';
 
 const WorkpsaceButton = ({ label, id, selectedId, onSelect, Icon, selectedColor }) => {
@@ -15,17 +15,13 @@ const WorkpsaceButton = ({ label, id, selectedId, onSelect, Icon, selectedColor 
   );
 };
 
-const WorkspaceSelection = () => {
-  const [selectedId, setSelectedId] = useState(null);
-
+const WorkspaceSelection = ({ selectedId, setSelectedId }) => {
   return (
     <div className="flex justify-start">
       <WorkpsaceButton id={1} label="Excel" selectedId={selectedId} onSelect={setSelectedId} Icon={File} selectedColor="#2ecc71" />
       <WorkpsaceButton id={2} label="Whiteboard" selectedId={selectedId} onSelect={setSelectedId} Icon={Edit2} selectedColor="#9b59b6" />
       <WorkpsaceButton id={3} label="Code" selectedId={selectedId} onSelect={setSelectedId} Icon={Code} selectedColor="#3498db" />
       <WorkpsaceButton id={4} label="Plugins" selectedId={selectedId} onSelect={setSelectedId} Icon={Plus} selectedColor="#e67e22" />
-
-      {/* Add more as needed */}
     </div>
   );
 };

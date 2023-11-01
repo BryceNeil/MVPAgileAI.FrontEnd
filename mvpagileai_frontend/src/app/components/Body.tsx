@@ -5,12 +5,29 @@ import InterviewAILogo from './chat/InterviewAILogo';
 import WorkspaceSelection from './workspace/WorkspaceSelection';
 import QuestionNavigator from './question/QuestionNavigator';
 import QuestionBox from './question/QuestionBox';
+import CodeWorkspace from './workspace/CodeWorkspace';
+import WhiteboardWorkspace from './workspace/WhiteboardWorkspace';
+import TablesWorkspace from './workspace/TablesWorkspace';
+import Plugins from './workspace/Plugins';
 
 const Body: React.FC = () => {
     const [leftSize, setLeftSize] = useState(33);
     const [bottomSize, setBottomSize] = useState(33); // Changed the initial value to 33 for equal distribution
     const [isResizing, setIsResizing] = useState<number | null>(null);
     const [selectedBox, setSelectedBox] = useState<number | null>(null);  // State to keep track of the selected box
+    const [selectedId, setSelectedId] = useState(null);
+
+    const mapIdToWorkspace = (id) => {
+      switch(id) {
+        case 1: return 'Tables';
+        case 2: return 'Whiteboard';
+        case 3: return 'Code';
+        case 4: return 'Plugins';
+        default: return null;
+      }
+    }
+
+    const selectedWorkspace = mapIdToWorkspace(selectedId);
 
 
     const handleMouseMove = (e: any) => {
@@ -36,7 +53,7 @@ const Body: React.FC = () => {
                   onClick={() => setSelectedBox(1)}
               >
               {/* Box 1 */}
-              <div className="bg-white rounded-lg" style={{ flexBasis: `${leftSize}%` }}>
+              <div className="bg-white rounded-lg flex flex-col h-full" style={{ flexBasis: `${leftSize}%` }}>
                 <QuestionNavigator/>
                 <QuestionBox/>
                   {/* <div className="p-4">Box 1 Content</div> */}
@@ -58,11 +75,17 @@ const Body: React.FC = () => {
                     style={{ flexBasis: `${100 - leftSize}%` }}
                     onClick={() => setSelectedBox(2)}
                 >
-                  <div className="bg-white rounded-lg overflow-hidden" style={{ flexBasis: `${100 - bottomSize}%` }}>
+                  <div className="bg-white w-full h-full overflow-hidden" style={{ flexBasis: `${100 - bottomSize}%` }}>
                       <div className="text-center p-2 py-3 bg-gray-50">
-                        <WorkspaceSelection/>
+                        <WorkspaceSelection selectedId={selectedId} setSelectedId={setSelectedId} />
                       </div>
-                      <div className="p-4">Box 2 Content</div>
+                      {/* <div className="p-4">Box 2 Content</div> */}
+                      <div className="h-full w-full">
+                        {selectedWorkspace === 'Tables' && <TablesWorkspace />}
+                        {selectedWorkspace === 'Whiteboard' && <WhiteboardWorkspace />}
+                        {selectedWorkspace === 'Code' && <CodeWorkspace />}
+                        {selectedWorkspace === 'Plugins' && <Plugins />}
+                      </div>
                   </div>
                   </div>
   
