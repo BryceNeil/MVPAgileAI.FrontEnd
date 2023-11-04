@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import NavActions from './metrics/NavActions';
 import SearchInput from './SearchInput';
+import UserProfileDropdown from './profile/UserProfileDropdown';
 
 const Navbar: React.FC = () => {
     const [sessionName, setSessionName] = useState('');
@@ -32,7 +33,8 @@ const Navbar: React.FC = () => {
                 {/* <a href="#" className="mx-2 hover:underline text-black">Home</a> */}
                 {/* <a href="#" className="mx-2 hover:underline text-black">About</a>
                 <a href="#" className="mx-2 hover:underline text-black">Contact</a> */}
-                <div className="mx-2 font-light text-black">AgileAI</div>
+                {/* <div className="mx-2 font-light text-black">AgileAI</div> */}
+                <UserProfileDropdown />
 
             </div>
         </div>
