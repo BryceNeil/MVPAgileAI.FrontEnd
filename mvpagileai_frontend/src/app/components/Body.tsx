@@ -9,6 +9,7 @@ import CodeWorkspace from './workspace/CodeWorkspace';
 import WhiteboardWorkspace from './workspace/WhiteboardWorkspace';
 import TablesWorkspace from './workspace/TablesWorkspace';
 import Plugins from './workspace/Plugins';
+import InterviewBody from './chat/InterviewBody';
 
 const Body: React.FC = () => {
     const [leftSize, setLeftSize] = useState(33);
@@ -75,16 +76,16 @@ const Body: React.FC = () => {
                     style={{ flexBasis: `${100 - leftSize}%` }}
                     onClick={() => setSelectedBox(2)}
                 >
-                  <div className="bg-white w-full h-full overflow-hidden" style={{ flexBasis: `${100 - bottomSize}%` }}>
+                  <div className="bg-white w-full h-full overflow-hidden flex flex-col" style={{ flexBasis: `${100 - bottomSize}%` }}>
                       <div className="text-center p-2 py-3 bg-gray-50">
-                        <WorkspaceSelection selectedId={selectedId} setSelectedId={setSelectedId} />
+                          <WorkspaceSelection selectedId={selectedId} setSelectedId={setSelectedId} />
                       </div>
-                      {/* <div className="p-4">Box 2 Content</div> */}
-                      <div className="h-full w-full">
-                        {selectedWorkspace === 'Tables' && <TablesWorkspace />}
-                        {selectedWorkspace === 'Whiteboard' && <WhiteboardWorkspace />}
-                        {selectedWorkspace === 'Code' && <CodeWorkspace />}
-                        {selectedWorkspace === 'Plugins' && <Plugins />}
+
+                      <div className="flex-grow overflow-auto">
+                          {selectedWorkspace === 'Tables' && <TablesWorkspace />}
+                          {selectedWorkspace === 'Whiteboard' && <WhiteboardWorkspace />}
+                          {selectedWorkspace === 'Code' && <CodeWorkspace />}
+                          {selectedWorkspace === 'Plugins' && <Plugins />}
                       </div>
                   </div>
                   </div>
@@ -102,11 +103,13 @@ const Body: React.FC = () => {
                       style={{ flexBasis: `${bottomSize}%` }}
                       onClick={() => setSelectedBox(3)}
                   >
-                    <div className="bg-white rounded-lg overflow-hidden flex-grow" style={{ flexBasis: `${bottomSize}%` }}>
-                      <div className="text-center p-2 py-3 bg-gray-50">
-                        <InterviewAILogo/>
-                      </div>
-                      <div className="p-4">Box 3 Content</div>
+                    <div className="flex flex-col h-full flex-grow bg-white rounded-lg overflow-hidden" style={{ flexBasis: `${bottomSize}%` }}>
+                        <div className="text-center p-2 py-3 bg-gray-50">
+                            <InterviewAILogo/>
+                        </div>
+                        <div className="flex-grow p-0">
+                            <InterviewBody/>
+                        </div>
                     </div>
                   </div>
               </div>

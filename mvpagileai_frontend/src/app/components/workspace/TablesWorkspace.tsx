@@ -36,7 +36,8 @@ const TablesWorkspace: React.FC = () => {
             hfInstance.setCellContents({ sheet: 0, row, col }, newVal);
           }
         }
-      });
+      })
+      ;
   
       hotInstance.addHook('afterSelectionEnd', (row, col) => {
         const cellName = Handsontable.helper.spreadsheetColumnLabel(col) + (row + 1);
@@ -87,7 +88,7 @@ const TablesWorkspace: React.FC = () => {
                 colHeaders={true}
                 rowHeaders={true}
                 width="100%"
-                height="calc(100vh - 64px)"
+                height="calc(60vh - 64px)"
                 autoRowSize={true}
                 autoColSize={true}
                 viewportColumnRenderingOffset={50}
