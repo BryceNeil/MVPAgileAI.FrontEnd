@@ -21,7 +21,7 @@ const UserProfileDropdown = () => {
                 onClick={() => setDropdownVisible(!isDropdownVisible)}
                 className="flex items-center justify-center cursor-pointer bg-blue-500 text-white rounded-full h-8 w-8"
             >
-                <span className="font-bold text-gray-50 uppercase">{userInitial}</span>
+                <span className="font-medium text-gray-50 uppercase">{userInitial}</span>
             </div>
 
             {/* Dropdown Menu */}
@@ -31,7 +31,7 @@ const UserProfileDropdown = () => {
                     <div className="block pl-2 pr-4 py-2 text-sm text-gray-700">
                         <div className="flex items-center">
                             <div className="bg-blue-500 rounded-full h-8 w-8 flex items-center justify-center">
-                                <span className="font-bold text-lg text-gray-50 uppercase">{userInitial}</span>
+                                <span className="font-medium text-lg text-gray-50 uppercase">{userInitial}</span>
                             </div>
                             <div className="ml-3">
                                 <span className="font-semibold block">{userName}</span>
