@@ -41,22 +41,22 @@ const Home: React.FC = () => {
 
   // If the user is not logged in, show the login page
   // if (!isLoggedIn) {
-  //   return <LoginPage onLogin={handleLogin} />;
-  // }
+    return <LoginPage onLogin={handleLogin} />;
+  }
 
   // If the user is logged in, show the main content
-  return (
-    <ThemeProvider>
-      <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
-        <Navbar />
-        {showOnboarding ? (
-          <Onboarding closeOnboarding={closeOnboarding} />
-        ) : (
-          <Body />
-        )}
-      </div>
-    </ThemeProvider>
-  );
-};
+//   return (
+//     <ThemeProvider>
+//       <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
+//         <Navbar />
+//         {showOnboarding ? (
+//           <Onboarding closeOnboarding={closeOnboarding} />
+//         ) : (
+//           <Body />
+//         )}
+//       </div>
+//     </ThemeProvider>
+//   );
+// };
 
 export default Home;
