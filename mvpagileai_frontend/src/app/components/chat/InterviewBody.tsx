@@ -11,11 +11,14 @@ const InterviewBody = () => {
   useEffect(scrollToBottom);
 
   return (
-    <div className="flex flex-col h-full w-full text-sm overflow-y-auto relative rounded-lg">
-      <Message from="user" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique." />
-      {/* <Message from="computer" text="Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet." /> */}
-      {/* Add more <Message /> components as needed */}
-      <div ref={messagesEndRef}></div>
+    <div className="flex font-semibold text-xs items-center mr-4 text-gray-900 dark:text-white">
+      <img 
+        src="/ailogo.svg" 
+        alt="AI Logo" 
+        className="mr-2 w-6 h-6" 
+        style={{ width: '24px', height: '24px' }} // Adjusted the size as per the style attribute
+      />
+      Interview AI
     </div>
   );
 };
