@@ -1,10 +1,14 @@
 "use client"
+"use client"
 import React, { useState, useEffect } from 'react';
 import Body from './components/Body';
 import Navbar from './components/Navbar';
 import LoginPage from './components/login/LoginPage';
 import Onboarding from './components/onboarding/Onboarding';
 import { ThemeProvider } from './theme/ThemeContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const Home: React.FC = () => {
   // New state for managing login status
@@ -46,6 +50,8 @@ const Home: React.FC = () => {
 
   // If the user is logged in, show the main content
   return (
+    <QueryClientProvider client={queryClient}>
+
     <ThemeProvider>
       <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
         <Navbar />
@@ -56,6 +62,7 @@ const Home: React.FC = () => {
         )}
       </div>
     </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 
