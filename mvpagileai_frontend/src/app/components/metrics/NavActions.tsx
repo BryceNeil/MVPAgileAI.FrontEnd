@@ -1,14 +1,21 @@
 import React, { useState } from "react";
+import { useTheme } from "@/app/theme/ThemeContext";
 import { Sun, Moon } from 'react-feather';
 
 const NavActions = ({ iconSize = 14 }) => {
-    const [theme, setTheme] = useState('light'); // State to manage the theme (light or dark)
+    // const [theme, setTheme] = useState('light'); // State to manage the theme (light or dark)
+    const { theme, setTheme } = useTheme();
+
 
     const totalCareerXP = 1050; // This can be replaced with the actual total career xp points.
 
     // Function to toggle the theme
+    // const toggleTheme = () => {
+    //     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    // };
+
     const toggleTheme = () => {
-        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+        setTheme(theme === 'light' ? 'dark' : 'light');
     };
 
     return (

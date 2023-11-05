@@ -11,7 +11,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --navbar-height: 64px; /* Adjust based on actual navbar height */
+
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -117,5 +120,6 @@ body {
 .tldraw__editor * {
   font-family: 'Inter', sans-serif !important;
 }
+
 
 
