@@ -5,6 +5,8 @@ import {fetchEventSource} from "@microsoft/fetch-event-source"
 import { API_URL } from "../../../../consts";
 import { flushSync } from "react-dom";
 import { getChatHistory } from "@/datafetch";
+import { Send } from 'react-feather'; // Import the icon
+
 
 interface InterviewBodyProps {
   questionId: string;
@@ -46,6 +48,24 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({
   //   setMessages(data)
   // }
 
+
+  // Function to play audio from a URL
+  const playAudioFromUrl = (audioUrl: string) => {
+    const audio = new Audio(audioUrl);
+    audio.play().catch((error) => console.error('Error playing audio:', error));
+  };
+
+  useEffect(() => {
+    // Whenever a new computer message is received, play its audio
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.from === 'computer') {
+      // Construct the URL to call the audio endpoint
+      const audioUrl = `${API_URL}/content/question/chat/audio`;
+      // Call the function to play the audio from the URL
+      playAudioFromUrl(audioUrl);
+    }
+  }, [messages, questionId]);  // Corrected dependency array to use 'questionId' instead of 'questioned'
+  
   useEffect(()=>{
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({behavior: 'smooth'})
@@ -121,21 +141,23 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({
   }
 
   return (
-    <div className="h-full w-full text-sm  relative rounded-lg overflow-y-hidden">
+    <div className="h-full w-full text-sm relative rounded-lg overflow-y-hidden">
      <div className="flex h-[100%] flex-col overflow-y-scroll">
      {messages && messages.map((message: MessageType, ix: number)=>(
       <Message from={message.from} text={message.text}></Message>
      ))}
       <div className="h-full  pb-24 " ref={messagesEndRef}></div>
      </div>
-      <div className="absolute flex flex-row bottom-0 w-full h-12">
+      <div className="absolute flex flex-row bottom-0 w-full h-12 bg-white dark:bg-darkgray border-t border-gray-100 dark:border-medgray">
         <input
-          className="flex-1 px-8 bg-neutral-100 border-y border-neutral-300 h-full text-black"
+          className="flex-1 px-8 bg-white dark:bg-darkgray h-full text-black"
           type="text"
           onChange={(e) => setAnswer(e.target.value)}
           value={answer}
         />
-        <button onClick={async ()=> await handleAddMessage()}className="w-32 h-12 rounded-md bg-blue-500">Send</button>
+        <button onClick={async ()=> await handleAddMessage()}className="w-12 h-12 rounded-md">
+          <Send size={16} className="text-gray-600 dark:text-icongray" />
+        </button>
       </div>
     </div>
   );

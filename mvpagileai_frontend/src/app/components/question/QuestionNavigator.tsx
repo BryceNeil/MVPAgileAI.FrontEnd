@@ -21,7 +21,7 @@ const QuestionNavigator = ({handleNewCase, handleNewQuestion}: QuestionNavigator
     // }
 
     return (
-        <div className="flex items-center p-1 bg-gray-50 justify-between">
+        <div className="flex items-center p-1 bg-gray-50 dark:bg-semidarkgray justify-between">
             {/* Description button with dropdown */}
             <div className="relative z-10">
                 {/* <button className="flex text-gray-900 font-semibold text-xs items-center ml-2" onClick={toggleDropdown}>
@@ -50,24 +50,24 @@ const QuestionNavigator = ({handleNewCase, handleNewQuestion}: QuestionNavigator
             {/* Navigation arrows */}
             <div className="ml-4 flex items-center">
                 {/* Refresh button */}
-                <button onClick={handleNewCase}className="relative group p-2 cursor-pointer hover:bg-gray-300 rounded transition-colors duration-300">
-                    <RefreshCw className="text-gray-600 w-4 h-4" />
+                <button onClick={handleNewCase}className="relative group p-2 cursor-pointer hover:bg-gray-300 hover:dark:bg-darkgray rounded transition-colors duration-300">
+                    <RefreshCw className="text-gray-600 dark:text-icongray w-4 h-4" />
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1 text-xs bg-black text-white p-1 mt-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">
                         New Case
                     </div>
                 </button>
 
                 {/* Previous arrow */}
-                <button onClick={()=>handleNewQuestion(-1)}className="relative group p-2 cursor-pointer hover:bg-gray-300 rounded transition-colors duration-300">
-                    <ChevronLeft className="text-gray-600 w-4 h-4" />
+                <button onClick={()=>handleNewQuestion(-1)}className="relative group p-2 cursor-pointer hover:bg-gray-300 hover:dark:bg-darkgray rounded transition-colors duration-300">
+                    <ChevronLeft className="text-gray-600 dark:text-icongray w-4 h-4" />
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1 text-xs bg-black text-white p-1 mt-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">
                         Previous Question
                     </div>
                 </button>
 
                 {/* Next arrow */}
-                <button onClick={()=>handleNewQuestion(1)} className="relative group p-2 cursor-pointer hover:bg-gray-300 rounded transition-colors duration-300">
-                    <ChevronRight className="text-gray-600 w-4 h-4" />
+                <button onClick={()=>handleNewQuestion(1)} className="relative group p-2 cursor-pointer hover:bg-gray-300 hover:dark:bg-darkgray rounded transition-colors duration-300">
+                    <ChevronRight className="text-gray-600 dark:text-icongray w-4 h-4" />
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1 text-xs bg-black text-white p-1 mt-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">
                         Next Question
                     </div>

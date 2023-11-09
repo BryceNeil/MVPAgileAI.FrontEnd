@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { ThumbsUp, ThumbsDown, HelpCircle, Award } from "react-feather";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../../../../consts";
 import { getCaseQuestions } from "@/datafetch";
+
 
 interface QuestionProps {
   currentCase: {
@@ -72,15 +73,15 @@ const QuestionComponent = ({ currentCase, currentQuestion }: QuestionProps) => {
     queryFn: () => getCaseQuestions(caseId),
   });
   return (
-    <div className="bg-white rounded-lg flex flex-col relative flex-grow mt-4 px-4 h-full">
+    <div className="bg-white dark:bg-darkgray rounded-lg flex flex-col relative flex-grow mt-4 px-4 h-full">
       <div className="overflow-y-auto flex-grow">
         {" "}
         {/* Scrollable div with flex-grow */}
-        <h1 className="text-black text-xl font-bold mb-2">
+        <h1 className="text-black dark:text-gray-50 text-xl font-semibold mb-2">
           {currentCase.title}
         </h1>
         <div className="mb-4 flex space-x-2">
-          <span className="bg-blue-100 text-blue-500 text-xs rounded-full px-3 py-1">
+          <span className="bg-blue-400 bg-opacity-30 text-blue-500 text-xs rounded-full px-3 py-1">
             {(currentQuestion && currentQuestion.difficulty) ?? "Medium"}
           </span>
           {currentQuestion && currentQuestion.skills &&
@@ -93,15 +94,15 @@ const QuestionComponent = ({ currentCase, currentQuestion }: QuestionProps) => {
               </span>
             ))}
         </div>
-        <p className="text-gray-500 text-sm mb-4">{currentCase.description}</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{currentCase.description}</p>
         {currentQuestion && currentQuestion.examples &&
           currentQuestion.examples.map((example: any, index: number) => (
             <div key={index} className="mb-4 text-sm">
-              <p className="text-black font-semibold mb-2">{`Example ${
+              <p className="text-black dark:text-gray-50 font-semibold mb-2">{`Example ${
                 index + 1
               } :`}</p>
               <p className="font-mono">
-                <span className="text-black">Input:</span>{" "}
+                <span className="text-black dark:text-gray-50">Input:</span>{" "}
                 <span className="text-gray-500">{example.input}</span>
               </p>
               <p className="font-mono mt-2">
@@ -111,16 +112,16 @@ const QuestionComponent = ({ currentCase, currentQuestion }: QuestionProps) => {
             </div>
           ))}
         {currentQuestion && (
-          <span className="text-black"><b>Question: </b>{currentQuestion.title}</span>
+          <span className="text-black dark:text-gray-50"><b>Question: </b>{currentQuestion.title}</span>
         )}
       </div>
 
       {/* this div */}
-      <div className="bg-white text-xs text-gray-500 p-2 flex justify-start space-x-2">
+      <div className="bg-white dark:bg-darkgray text-xs text-gray-500 p-2 flex justify-start space-x-2">
         {" "}
         {/* Background and hover effect added */}
         <button
-          className="flex items-center p-2 hover:bg-gray-200 rounded"
+          className="flex items-center p-2 hover:bg-gray-200 hover:dark:bg-darkestgray rounded"
           onClick={() => toggleLike()}
         >
           <ThumbsUp
@@ -130,7 +131,7 @@ const QuestionComponent = ({ currentCase, currentQuestion }: QuestionProps) => {
           <span>{formatCount(likes)}</span>
         </button>
         <button
-          className="flex items-center p-2 hover:bg-gray-200 rounded"
+          className="flex items-center p-2 hover:bg-gray-200 hover:dark:bg-darkestgray rounded"
           onClick={() => toggleDislike()}
         >
           <ThumbsDown
@@ -139,7 +140,7 @@ const QuestionComponent = ({ currentCase, currentQuestion }: QuestionProps) => {
           />
           <span>{formatCount(dislikes)}</span>
         </button>
-        <button className="p-2 hover:bg-gray-200 rounded">
+        <button className="p-2 hover:bg-gray-200 hover:dark:bg-darkestgray rounded">
           <HelpCircle size={14} className="text-gray-500 " />
         </button>
       </div>

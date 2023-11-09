@@ -106,15 +106,15 @@ const Body: React.FC = () => {
     >
       <div className="flex w-full flex-grow">
         <div
-          className={`bg-white rounded-lg overflow-hidden ${
-            selectedBox === 1 ? "border border-gray-200" : ""
+          className={`bg-white dark:bg-darkestgray rounded-lg overflow-hidden ${
+            selectedBox === 1 ? "border border-gray-200 dark:border-medgray" : ""
           }`}
           style={{ flexBasis: `${leftSize}%` }}
           onClick={() => setSelectedBox(1)}
         >
           {/* Box 1 */}
           <div
-            className="bg-white rounded-lg flex flex-col h-full"
+            className="bg-white dark:bg-darkgray rounded-lg flex flex-col h-full"
             style={{ flexBasis: `${leftSize}%` }}
           >
             <QuestionNavigator
@@ -140,7 +140,7 @@ const Body: React.FC = () => {
             className={
               isResizing === 1
                 ? "rounded w-0.5 h-full bg-blue-500"
-                : "rounded-full w-0.5 h-8 bg-gray-300 hover:bg-transparent"
+                : "rounded-full w-0.5 h-8 bg-gray-300 dark:bg-medgray hover:bg-transparent"
             }
           ></div>
         </div>
@@ -150,7 +150,7 @@ const Body: React.FC = () => {
           className="flex flex-col flex-grow"
           style={{ flexBasis: `${100 - leftSize}%` }}
         >
-          <div
+          {/* <div
             className={`bg-white rounded-lg overflow-hidden ${
               selectedBox === 2 ? "border border-gray-200" : ""
             }`}
@@ -166,19 +166,19 @@ const Body: React.FC = () => {
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
                 />
-              </div>
+              </div> */}
 
-              <div className="flex-grow overflow-auto">
+              {/* <div className="flex-grow overflow-auto"> */}
                 {/* {selectedWorkspace === "Tables" && <TablesWorkspace />} */}
-                {selectedWorkspace === "Whiteboard" && <WhiteboardWorkspace />}
+                {/* {selectedWorkspace === "Whiteboard" && <WhiteboardWorkspace />} */}
                 {/* {selectedWorkspace === "Code" && <CodeWorkspace />} */}
                 {/* {selectedWorkspace === "Plugins" && <Plugins />} */}
-              </div>
+              {/* </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Y-axis Resize handle */}
-          <div
+          {/* <div
             className="relative cursor-ns-resize flex items-center justify-center"
             style={{ height: "8px" }}
             onMouseDown={() => setIsResizing(2)}
@@ -190,17 +190,17 @@ const Body: React.FC = () => {
                   : "rounded-full w-8 h-0.5 bg-gray-300 hover:bg-transparent"
               }
             ></div>
-          </div>
+          </div> */}
 
           {/* Box 3 */}
           <div
-            className={`flex bg-white rounded-lg  h-full overflow-hidden w-full  ${
-              selectedBox === 3 ? "border border-gray-200" : ""
+            className={`flex bg-white dark:bg-darkgray rounded-lg  h-full overflow-hidden w-full  ${
+              selectedBox === 3 ? "border border-gray-200 dark:border-medgray" : ""
             }`}
             onClick={() => setSelectedBox(3)}
           >
             <div className="flex flex-col h-full w-full rounded-lg overflow-hidden ">
-              <div className="text-center p-2 py-3 bg-gray-50">
+              <div className="text-center p-2 py-3 bg-gray-50 dark:bg-semidarkgray">
                 <InterviewAILogo />
               </div>
               <div className="h-[800px] p-0 w-full">

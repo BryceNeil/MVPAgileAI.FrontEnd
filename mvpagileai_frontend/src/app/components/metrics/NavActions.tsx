@@ -20,7 +20,7 @@ const NavActions = ({ iconSize = 14 }) => {
 
     return (
         <>
-            <div className="h-8 flex justify-center items-center w-auto p-1 hover:bg-gray-300 hover:bg-opacity-50 transition duration-300 rounded-md">      
+            <div className="h-8 flex justify-center items-center w-auto p-1 hover:bg-gray-300 hover:bg-opacity-50 dark:hover:bg-semidarkgray transition duration-300 rounded-md">      
                 <div className="border border-gray-500 text-xs text-gray-500 p-0.5 px-2 rounded mr-2">
                     xp
                 </div>
@@ -29,7 +29,7 @@ const NavActions = ({ iconSize = 14 }) => {
                 </span>
             </div>
 
-            <div className="h-8 flex justify-center items-center w-auto p-1 hover:bg-gray-300 hover:bg-opacity-50 transition duration-300 rounded-md">
+            <div className="h-8 mx-2 flex justify-center items-center w-auto p-1 hover:bg-gray-300 hover:bg-opacity-50 dark:hover:bg-semidarkgray transition duration-300 rounded-md">
                 <img 
                     src="/fire.svg" 
                     alt="fire logo" 
@@ -42,7 +42,7 @@ const NavActions = ({ iconSize = 14 }) => {
             </div>
 
             <button 
-                className="h-8 ml-2 flex justify-center items-center w-10 p-1 hover:bg-gray-300 hover:bg-opacity-50 transition duration-300 rounded-md"
+                className="h-8 ml-2 mr-4 flex justify-center items-center w-10 p-1 hover:bg-gray-300 hover:bg-opacity-50 dark:hover:bg-semidarkgray transition duration-300 rounded-md"
                 onClick={toggleTheme}
             >
                 {theme === 'light' ? <Moon color="#6B7280" size={iconSize} /> : <Sun color="#6B7280" size={iconSize} />}
