@@ -1,5 +1,4 @@
 "use client"
-"use client"
 import React, { useState, useEffect } from 'react';
 import Body from './components/Body';
 import Navbar from './components/Navbar';
@@ -16,14 +15,15 @@ const Home: React.FC = () => {
 
   // Initialize showOnboarding state based on localStorage value
   const [showOnboarding, setShowOnboarding] = useState(
-    !localStorage.getItem('hasCompletedOnboarding')
+    false
   );
 
   const closeOnboarding = () => {
-    localStorage.setItem('hasCompletedOnboarding', 'true');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('hasCompletedOnboarding', 'true');
+    }
     setShowOnboarding(false);
   };
-
   // New effect for checking login status
   useEffect(() => {
     // Check if user is logged in (for the sake of this example, we use localStorage)
@@ -39,7 +39,9 @@ const Home: React.FC = () => {
 
   // Handler for when the user logs in successfully
   const handleLogin = () => {
-    localStorage.setItem('isLoggedIn', 'true');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('isLoggedIn', 'true');
+    }
     setIsLoggedIn(true);
   };
 

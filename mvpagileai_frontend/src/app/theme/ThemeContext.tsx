@@ -7,12 +7,24 @@ interface ThemeContextProps {
   setTheme: (theme: string) => void;
 }
 
+interface ThemeProviderProps {
+  children: React.ReactNode,
+}
+
 const ThemeContext = createContext<ThemeContextProps>({ theme: 'light', setTheme: () => {} });
 
 export const useTheme = () => useContext(ThemeContext);
 
-export const ThemeProvider: React.FC = ({ children }) => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({children}) => {
+  const [theme, setTheme] = useState('light');
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;

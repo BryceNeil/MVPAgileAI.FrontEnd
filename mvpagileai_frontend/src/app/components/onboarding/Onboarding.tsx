@@ -10,7 +10,7 @@ const Onboarding: React.FC<{ closeOnboarding: () => void }> = ({ closeOnboarding
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 7; // Number of slides
 
-  const SlideContent = ({ title, subtitle, Component }) => (
+  const SlideContent: React.FC<{ title: string, subtitle: string, Component?: React.ComponentType}> = ({ title, subtitle, Component}) => (
     <div className="flex flex-col items-center px-2 py-4 justify-between h-full">
       {/* Header */}
       <div className="w-full px-6 py-3 flex items-center justify-between">
@@ -114,7 +114,7 @@ const Onboarding: React.FC<{ closeOnboarding: () => void }> = ({ closeOnboarding
       }
   
       // Fallback content
-      return <SlideContent title="Unknown Slide" subtitle="This slide is not configured" />;
+      return <SlideContent title="Unknown Slide" subtitle="This slide is not configured"/>;
     };
 
   // bg-opacity-20 backdrop-blur-md 

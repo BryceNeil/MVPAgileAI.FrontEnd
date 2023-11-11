@@ -1,7 +1,12 @@
 import React from 'react';
 // Import your UserIcon and AgileAI Icon here
 
-const Message = ({ from, text }) => {
+interface MessageProps {
+  from : string,
+  text : string,
+}
+
+const Message: React.FC<MessageProps> = ({ from, text }) => {
   return (
     <div className={`flex items-start w-full p-4 border-t border-gray-100 dark:border-semidarkgray ${from === 'computer' ? 'bg-white dark:bg-darkgray flex-row' : 'bg-white dark:bg-darkgray flex-row-reverse'}`}>
       <div className="mx-4">

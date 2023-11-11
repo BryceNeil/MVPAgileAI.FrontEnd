@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Message from "./Message"; // Adjust the import path if necessary
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
-import {fetchEventSource} from "@microsoft/fetch-event-source"
+import {fetchEventSource} from "@microsoft/fetch-event-source";
 import { API_URL } from "../../../../consts";
 import { flushSync } from "react-dom";
 import { getChatHistory } from "@/datafetch";

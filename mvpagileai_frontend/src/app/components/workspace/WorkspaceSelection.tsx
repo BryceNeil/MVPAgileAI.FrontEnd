@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { File, Edit2, Code, Plus } from 'react-feather';
 
-const WorkpsaceButton = ({ label, id, selectedId, onSelect, Icon, selectedColor }) => {
+interface WorkspaceButtonProps{
+  label: string;
+  id: number;
+  selectedId: number | null;
+  onSelect: (id: number) => void;
+  Icon: React.ElementType;
+  selectedColor:string;
+}
+
+const WorkpsaceButton: React.FC<WorkspaceButtonProps> = ({ label, id, selectedId, onSelect, Icon, selectedColor }) => {
   const isSelected = selectedId === id;
   
   return (
@@ -16,7 +25,7 @@ const WorkpsaceButton = ({ label, id, selectedId, onSelect, Icon, selectedColor 
 };
 
 const WorkspaceSelection = () => {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   return (
     <div className="flex justify-start">

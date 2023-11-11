@@ -9,16 +9,18 @@ interface QuestionProps {
   currentCase: {
     title: string;
     description: string;
-    categories: string[];
+    categories?: string[];
   };
   currentQuestion: {
     title: string;
     description: string;
-    skills: string[];
-    difficulty: string;
+    skills?: string[];
+    difficulty?: string;
+    examples?: string[];
   };
+  caseId: string;
 }
-const QuestionComponent = ({ currentCase, currentQuestion }: QuestionProps) => {
+const QuestionComponent = ({ currentCase, currentQuestion, caseId }: QuestionProps) => {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
     const [showRubric, setShowRubric] = useState(false); // State to control rubric visibility
@@ -169,6 +171,7 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
       <QuestionComponent
         currentCase={currentCase}
         currentQuestion={currentQuestion}
+        caseId = ""
       />
     );
 };
