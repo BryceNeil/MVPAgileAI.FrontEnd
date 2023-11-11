@@ -3,10 +3,14 @@ import { useState, useRef } from 'react';
 import { useOutsideAlerter } from '@/app/hooks/useOutsideAlerter';
 import { User, Settings, PlusCircle, ArrowUpCircle, LogOut } from 'react-feather'; // Corrected icon imports
 
+
+interface UserProfileDropdownProps {
+
+}
+
 const UserProfileDropdown = () => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const wrapperRef = useRef(null);
-    useOutsideAlerter(wrapperRef, () => setDropdownVisible(false));
 
     const iconSize = 16; // Smaller icon size as requested
 

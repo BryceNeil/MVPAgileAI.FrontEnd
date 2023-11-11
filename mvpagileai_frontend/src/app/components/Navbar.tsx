@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { FormEvent, useState, useRef  } from 'react';
 import { useTheme } from '../theme/ThemeContext';
 import NavActions from './metrics/NavActions';
 import SearchInput from './SearchInput';
@@ -10,10 +10,18 @@ const Navbar: React.FC = () => {
     const [isInputVisible, setInputVisible] = useState(true);
     const { theme } = useTheme(); // Use the hook to get the current theme
 
-    const handleInputSubmit = (e) => {
+    const sessionInputRef = useRef<HTMLInputElement | null>(null);
+
+    const handleInputSubmit = (e: FormEvent) => {
         e.preventDefault();
-        setSessionName(e.target.elements.sessionInput.value);
-        setInputVisible(false);
+
+        // Access the input value using the ref
+        const inputElement = sessionInputRef.current;
+
+        if (inputElement) {
+            setSessionName(inputElement.value);
+            setInputVisible(false);
+        }
     };
 
     return (
