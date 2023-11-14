@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
 
                 <NavActions/>       
 
-                <UserProfileDropdown />
+                <UserProfileDropdown loggedIn={false} />
             </div>
         </div>
     );

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Body from './components/Body';
 import Navbar from './components/Navbar';
-import LoginPage from './components/login/LoginPage';
+import LoginPage from './login/LoginPage';
 import Onboarding from './components/onboarding/Onboarding';
 import { ThemeProvider } from './theme/ThemeContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -15,6 +15,9 @@ const Home: React.FC = () => {
 
   // Initialize showOnboarding state based on localStorage value
   const [showOnboarding, setShowOnboarding] = useState(
+    false
+  );
+  const [showLogin, setShowLogin] = useState(
     false
   );
 
