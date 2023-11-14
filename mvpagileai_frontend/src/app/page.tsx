@@ -7,6 +7,7 @@ import LoginPage from './components/login/LoginPage';
 import Onboarding from './components/onboarding/Onboarding';
 import { ThemeProvider } from './theme/ThemeContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CaseProvider } from './props/CaseProvider';
 
 const queryClient = new QueryClient();
 
@@ -50,19 +51,20 @@ const Home: React.FC = () => {
 
   // If the user is logged in, show the main content
   return (
-    <QueryClientProvider client={queryClient}>
-
-    <ThemeProvider>
-      <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
-        <Navbar />
-        {showOnboarding ? (
-          <Onboarding closeOnboarding={closeOnboarding} />
-        ) : (
-          <Body />
-        )}
-      </div>
-    </ThemeProvider>
-    </QueryClientProvider>
+    <CaseProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
+            <Navbar />
+            {showOnboarding ? (
+              <Onboarding closeOnboarding={closeOnboarding} />
+            ) : (
+              <Body />
+            )}
+          </div>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </CaseProvider>
   );
 };
 

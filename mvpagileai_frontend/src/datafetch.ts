@@ -18,6 +18,42 @@ export const getUserProfile = async () => {
         return null;
     }
 }
+
+{ /* overall case object */}
+export const getCase = async (inputValue) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/content/create/case`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'text/plain'
+        },
+        body: inputValue
+      }
+    );
+
+    if (!response.ok) {
+      console.error('Server responded with status:', response.status);
+      const errorBody = await response.json();
+      console.error('Error body:', errorBody);
+      return null;
+    }
+
+    const responseData = await response.json();
+    // Assuming the JSON string is in responseData.choices[0].message.content
+    const caseData = responseData.choices[0].message.content;
+    console.log("RETURNED: ", JSON.parse(caseData));
+    return JSON.parse(caseData); // Parse the JSON string to get the actual object
+  } catch (error) {
+    console.error('Error making the request:', error);
+    return null;
+  }
+};
+
+
+
+
 export const getCases = async () => {
   const res = await fetch(`${API_URL}/content/cases`);
   if (res.ok) {
