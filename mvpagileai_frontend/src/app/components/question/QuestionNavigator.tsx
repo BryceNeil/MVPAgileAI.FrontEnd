@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FileText, ChevronLeft, ChevronRight, ChevronDown, RefreshCw } from 'react-feather';
+import { FileText, BookOpen, BarChart2, ChevronLeft, ChevronRight, RefreshCw } from 'react-feather';
 import { useCase } from "../../props/CaseProvider";
 
 interface QuestionNavigatorProps {
@@ -8,7 +8,13 @@ interface QuestionNavigatorProps {
 }
 const QuestionNavigator = () => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const { setCurrentQuestionIndex, caseData } = useCase();
+    const { setCurrentQuestionIndex, caseData, selectedView, setSelectedView } = useCase();
+
+    // Function to handle button selection
+    const handleButtonSelect = (button) => {
+        setSelectedView(button);
+        // Additional logic for each button can be added here
+    };
 
     const handleNewQuestion = (change) => {
         setCurrentQuestionIndex((prevIndex) => {
@@ -22,30 +28,34 @@ const QuestionNavigator = () => {
 
     return (
         <div className="flex items-center p-1 bg-gray-50 dark:bg-semidarkgray justify-between">
-            {/* Description button with dropdown */}
-            <div className="relative z-10">
-                {/* <button className="flex text-gray-900 font-semibold text-xs items-center ml-2" onClick={toggleDropdown}>
-                    <FileText className="w-4 h-4 mr-2" color="#3498db"/>
-                    {currentCategory}
-                    <ChevronDown className="w-4 h-4 ml-2"/>
-                </button> */}
-                
-                {/* Dropdown menu */}
-                {isDropdownOpen && (
-                    <div className="absolute text-gray-300 text-xs mt-2 w-56 left-0 bg-gray-50 border border-gray-100 rounded">
-                        {/* {categories.map(category => (
-                            <button 
-                                key={category}
-                                className={`flex items-center w-full p-2 ${category === currentCategory ? 'bg-gray-200 text-black' : 'hover:bg-gray-200'}`}
-                                onClick={() => changeCategory(category)}
-                            >
-                                <FileText className="w-4 h-4 mr-2" color="#3498db"/>
-                                {category}
-                            </button>
-                        ))} */}
-                    </div>
-                )}
+            {/* Left side buttons */}
+            <div className="flex">
+                {/* Problem button */}
+                <button 
+                    onClick={() => handleButtonSelect('problem')}
+                    className={`flex items-center px-2 py-1 text-sm font-medium ${selectedView === 'problem' ? 'opacity-100' : 'text-gray-500 opacity-60'}`}>
+                    <FileText className="mr-2 w-4 h-4 text-blue-500" />
+                    Problem
+                </button>
+
+                {/* Rubric button */}
+                <button 
+                    onClick={() => handleButtonSelect('rubric')}
+                    className={`flex items-center px-2 py-1 text-sm font-medium ${selectedView === 'rubric' ? 'opacity-100' : 'text-gray-500 opacity-60'}`}>
+                    <BookOpen className="mr-2 w-4 h-4 text-blue-500" />
+                    Rubric
+                </button>
+
+                {/* Problem Solving Framework button */}
+                <button 
+                    onClick={() => handleButtonSelect('framework')}
+                    className={`flex items-center px-2 py-1 text-sm font-medium ${selectedView === 'framework' ? 'opacity-100' : 'text-gray-500 opacity-60'}`}>
+                    <BarChart2 className="mr-2 w-4 h-4 text-blue-500" />
+                    Framework
+                </button>
             </div>
+
+            {/* Right side navigation arrows (existing code) */}
 
             {/* Navigation arrows */}
             <div className="ml-4 flex items-center">
