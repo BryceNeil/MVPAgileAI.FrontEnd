@@ -49,22 +49,22 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({
   // }
 
 
-  // Function to play audio from a URL
-  const playAudioFromUrl = (audioUrl: string) => {
-    const audio = new Audio(audioUrl);
-    audio.play().catch((error) => console.error('Error playing audio:', error));
-  };
+  // // Function to play audio from a URL
+  // const playAudioFromUrl = (audioUrl: string) => {
+  //   const audio = new Audio(audioUrl);
+  //   audio.play().catch((error) => console.error('Error playing audio:', error));
+  // };
 
-  useEffect(() => {
-    // Whenever a new computer message is received, play its audio
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage?.from === 'computer') {
-      // Construct the URL to call the audio endpoint
-      const audioUrl = `${API_URL}/content/question/chat/audio`;
-      // Call the function to play the audio from the URL
-      playAudioFromUrl(audioUrl);
-    }
-  }, [messages, questionId]);  // Corrected dependency array to use 'questionId' instead of 'questioned'
+  // useEffect(() => {
+  //   // Whenever a new computer message is received, play its audio
+  //   const lastMessage = messages[messages.length - 1];
+  //   if (lastMessage?.from === 'computer') {
+  //     // Construct the URL to call the audio endpoint
+  //     const audioUrl = `${API_URL}/content/question/chat/audio`;
+  //     // Call the function to play the audio from the URL
+  //     playAudioFromUrl(audioUrl);
+  //   }
+  // }, [messages, questionId]);  // Corrected dependency array to use 'questionId' instead of 'questioned'
   
   useEffect(()=>{
     if (messagesEndRef.current) {

@@ -4,6 +4,7 @@ import { useTheme } from '../theme/ThemeContext';
 import NavActions from './metrics/NavActions';
 import SearchInput from './SearchInput';
 import UserProfileDropdown from './profile/UserProfileDropdown';
+import JobTitleDisplay from './header/JobTitleDisplay';
 
 const Navbar: React.FC = () => {
     const [sessionName, setSessionName] = useState('');
@@ -21,7 +22,8 @@ const Navbar: React.FC = () => {
             {/* Logo and navigation arrows */}
             <div className="flex items-center">
                 <img src="/AgileAILogo4.svg" alt="Logo" className={`w-10 h-7 mr-2 ${theme === 'dark' ? 'filter invert' : ''}`} />
-                <h2 className={`w-full flex items-center h-8 py-0.5 px-2 text-sm rounded-md ${theme === 'dark' ? 'bg-semidarkgray text-white' : 'bg-gray-200 text-gray-500'}`}>Google APM</h2>
+                <JobTitleDisplay/>
+                {/* <h2 className={`w-full flex items-center h-8 py-0.5 px-2 text-sm rounded-md ${theme === 'dark' ? 'bg-semidarkgray text-white' : 'bg-gray-200 text-gray-500'}`}>{caseData Google APM</h2> */}
             </div>
 
             {/* Other navbar items */}
