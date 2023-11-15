@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { FileText, ChevronLeft, ChevronRight, ChevronDown, RefreshCw } from 'react-feather';
+import { useCase } from "../../props/CaseProvider";
 
 interface QuestionNavigatorProps {
     handleNewCase: () => void
     handleNewQuestion: (change: number) => void
 }
-const QuestionNavigator = ({handleNewCase, handleNewQuestion}: QuestionNavigatorProps) => {
+const QuestionNavigator = () => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [currentCategory, setCurrentCategory] = useState('Financial Modelling');
+    const { setCurrentQuestionIndex, caseData } = useCase();
 
-    // const categories = ['Financial Modelling', 'Category 1', 'Category 2']; // List of all categories
-
-    // const toggleDropdown = () => {
-    //     setDropdownOpen(!isDropdownOpen);
-    // }
-
-    // const changeCategory = (newCategory) => {
-    //     setCurrentCategory(newCategory);
-    //     toggleDropdown();
-    // }
+    const handleNewQuestion = (change) => {
+        setCurrentQuestionIndex((prevIndex) => {
+            const newIndex = prevIndex + change;
+            if (newIndex >= 0 && newIndex < caseData.questions.length) {
+                return newIndex;
+            }
+            return prevIndex;
+        });
+    };
 
     return (
         <div className="flex items-center p-1 bg-gray-50 dark:bg-semidarkgray justify-between">
@@ -50,7 +50,7 @@ const QuestionNavigator = ({handleNewCase, handleNewQuestion}: QuestionNavigator
             {/* Navigation arrows */}
             <div className="ml-4 flex items-center">
                 {/* Refresh button */}
-                <button onClick={handleNewCase}className="relative group p-2 cursor-pointer hover:bg-gray-300 hover:dark:bg-darkgray rounded transition-colors duration-300">
+                <button onClick={()=>handleNewQuestion(+1)}className="relative group p-2 cursor-pointer hover:bg-gray-300 hover:dark:bg-darkgray rounded transition-colors duration-300">
                     <RefreshCw className="text-gray-600 dark:text-icongray w-4 h-4" />
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1 text-xs bg-black text-white p-1 mt-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">
                         New Case

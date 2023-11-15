@@ -8,9 +8,10 @@ export const useCase = () => useContext(CaseContext);
 
 export const CaseProvider = ({ children }) => {
     const [caseData, setCaseData] = useState(null);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // New state
 
     return (
-        <CaseContext.Provider value={{ caseData, setCaseData }}>
+        <CaseContext.Provider value={{ caseData, setCaseData, currentQuestionIndex, setCurrentQuestionIndex }}>
             {children}
         </CaseContext.Provider>
     );

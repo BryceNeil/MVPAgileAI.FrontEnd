@@ -1,3 +1,4 @@
+import { parse } from "path/posix";
 import { API_URL } from "../consts";
 
 // Replace w/ a localstorage system
@@ -40,11 +41,10 @@ export const getCase = async (inputValue) => {
       return null;
     }
 
-    const responseData = await response.json();
-    // Assuming the JSON string is in responseData.choices[0].message.content
-    const caseData = responseData.choices[0].message.content;
-    console.log("RETURNED: ", JSON.parse(caseData));
-    return JSON.parse(caseData); // Parse the JSON string to get the actual object
+    const caseData = await response.json();
+    console.log("RETURNED: ", caseData);
+    const parseCaseData = JSON.parse(caseData);
+    return parseCaseData; // Directly return the parsed JSON object
   } catch (error) {
     console.error('Error making the request:', error);
     return null;

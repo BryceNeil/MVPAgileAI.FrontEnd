@@ -1,28 +1,36 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ThumbsUp, ThumbsDown, HelpCircle, Award } from "react-feather";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCase, getCaseQuestions } from "@/datafetch";
 import { useCase } from '../../props/CaseProvider';
 
-interface QuestionProps {
-  currentCase: {
-    title: string;
-    description: string;
-    categories: string[];
-  };
-  currentQuestion: {
-    title: string;
-    description: string;
-    skills: string[];
-    difficulty: string;
-  };
+interface CaseData {
+  jobTitle: string;
+  scenario: string;
+  questions: Question[];
 }
+
+interface Question {
+  questionNumber: number;
+  question: string;
+  difficultyLevel: string;
+  relevantSkills: string[];
+}
+
 const QuestionComponent = () => {
-  const { caseData } = useCase();
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { caseData, currentQuestionIndex } = useCase(); // Ensure this hook is correctly providing data
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
   const [showRubric, setShowRubric] = useState(false); // State to control rubric visibility
+ 
+  useEffect(() => {
+    console.log("Updated caseData:", caseData);
+    // Here, you can safely access caseData.jobTitle
+    console.log("Job Title:", caseData?.jobTitle);
+  }, [caseData]); // This effect runs whenever caseData changes
+  
+  
+  
 
   const formatCount = (count: number) => {
     if (count >= 1e6) return `${(count / 1e6).toFixed(1)}M`;
@@ -69,12 +77,7 @@ const QuestionComponent = () => {
       const toggleRubricVisibility = () => {
           setShowRubric(!showRubric);
       };
-  
 
-  const { data: questions } = useQuery({
-    queryKey: ["questions"],
-    queryFn: () => getCaseQuestions(caseId),
-  });
   return (
     <div className="bg-white dark:bg-darkgray rounded-lg flex flex-col relative flex-grow mt-4 px-4 h-full">
       {caseData && (
@@ -89,7 +92,7 @@ const QuestionComponent = () => {
                 <span className="bg-blue-400 bg-opacity-30 text-blue-500 text-xs rounded-full px-3 py-1">
                   {currentQuestion.difficultyLevel}
                 </span>
-                {currentQuestion.relevantSkills.map((skill, index) => (
+                {currentQuestion.relevantSkills?.map((skill, index) => (
                   <span key={index} className="bg-gray-200 text-gray-800 text-xs rounded-full px-3 py-1">
                     {skill}
                   </span>
@@ -136,18 +139,6 @@ const QuestionComponent = () => {
   );
 };
 
-interface QuestionBoxProps {
-  currentCase: {
-    caseId: string;
-    title: string;
-    description: string;
-  };
-  currentQuestion: {
-    questionId: string;
-    title: string;
-    description: string;
-  };
-}
 const QuestionBox = () => {
   return <QuestionComponent/>;
 };

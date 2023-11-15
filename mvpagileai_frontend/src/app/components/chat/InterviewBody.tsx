@@ -149,12 +149,14 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({
       <div className="h-full  pb-24 " ref={messagesEndRef}></div>
      </div>
       <div className="absolute flex flex-row bottom-0 w-full h-12 bg-white dark:bg-darkgray border-t border-gray-100 dark:border-medgray">
-        <input
-          className="flex-1 px-8 bg-white dark:bg-darkgray h-full text-black"
-          type="text"
-          onChange={(e) => setAnswer(e.target.value)}
-          value={answer}
-        />
+      <input
+        className="flex-1 px-8 bg-white dark:bg-darkgray h-full text-gray-50 focus:outline-none placeholder:text-icongray"
+        type="text"
+        placeholder="Type your answer here..." // Add a placeholder text
+        onChange={(e) => setAnswer(e.target.value)}
+        value={answer}
+      />
+
         <button onClick={async ()=> await handleAddMessage()}className="w-12 h-12 rounded-md">
           <Send size={16} className="text-gray-600 dark:text-icongray" />
         </button>
