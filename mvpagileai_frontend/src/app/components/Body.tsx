@@ -189,7 +189,8 @@ const Body: React.FC<BodyProps> = ({isLoggedIn}) => {
                   ? "rounded w-full h-0.5 bg-blue-500"
                   : "rounded-full w-8 h-0.5 bg-gray-300 hover:bg-transparent"
               }
-            ></div>
+            >
+            </div>
           </div> */}
 
           {/* Box 3 */}
