@@ -42,7 +42,7 @@ const Body: React.FC<BodyProps> = ({isLoggedIn}) => {
   });
 
   const [leftSize, setLeftSize] = useState(70);
-  const [bottomSize, setBottomSize] = useState(33); // Changed the initial value to 33 for equal distribution
+  const [bottomSize, setBottomSize] = useState(33); // Changed the initial valu to 33 for equal distribution
   const [isResizing, setIsResizing] = useState<number | null>(null);
   const [selectedBox, setSelectedBox] = useState<number | null>(null); // State to keep track of the selected box
   const [selectedId, setSelectedId] = useState(2);
