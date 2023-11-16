@@ -13,6 +13,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getCaseQuestions, getCases, getUserProfile, token } from "@/datafetch";
 import { useRouter } from "next/navigation";
 
+interface BodyProps {
+  isLoggedIn: boolean;
+}
+
 const mapIdToWorkspace = (id: number) => {
   switch (id) {
     case 1:
@@ -28,18 +32,14 @@ const mapIdToWorkspace = (id: number) => {
   }
 };
 
-const Body: React.FC = () => {
+const Body: React.FC<BodyProps> = ({isLoggedIn}) => {
   /* Check logged in */
   const router = useRouter();
+  const accessToken = typeof window !== 'undefined' ? localStorage.getItem("accessToken") || '' : undefined;
   const { data: authProfile, isSuccess } = useQuery({
     queryKey: ["auth"],
-    queryFn: getUserProfile,
+    queryFn: () => getUserProfile(accessToken),
   });
-  console.log(authProfile);
-  if (isSuccess && authProfile == null) {
-    // If user doesn't have a token (and is therefore not logged in), redirect to login page
-    router.push("/login");
-  }
 
   const [leftSize, setLeftSize] = useState(70);
   const [bottomSize, setBottomSize] = useState(33); // Changed the initial value to 33 for equal distribution

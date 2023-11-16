@@ -1,13 +1,13 @@
 import { API_URL } from "../consts";
 
 // Replace w/ a localstorage system
-export const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWM3OWUwNGEtNDkxZi00NGVjLThlZGEtODJjNzA0NjAyOGM0IiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNzMwNzQ4NTM4fQ.CYJVqP96PCZD1SxqCVHokkXqXEbTrEuWRbfrkeTBVBI"
+export const token = ""
 
-export const getUserProfile = async () => {
+export const getUserProfile = async (accessToken: string = '') => {
     const res = await fetch(`${API_URL}/auth/profile`, {
         method: "GET",
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${accessToken}`
         }
     });
 
