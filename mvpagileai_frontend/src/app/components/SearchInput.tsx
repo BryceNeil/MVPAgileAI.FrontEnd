@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, } from 'react';
 import { Search } from 'react-feather';
 
-const SearchInput = () => {
+const SearchInput: React.FC = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInputFocus = () => {
     setIsFocused(true);
   }
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: globalThis.KeyboardEvent) => {
     if ((event.metaKey || event.ctrlKey) && event.key === 'j') {
       handleInputFocus();
-      inputRef.current.focus();
+      inputRef.current?.focus();
     }
   }
 

@@ -4,7 +4,6 @@ import { useTheme } from '../theme/ThemeContext';
 import NavActions from './metrics/NavActions';
 import SearchInput from './SearchInput';
 import UserProfileDropdown from './profile/UserProfileDropdown';
-import { getUserProfile, token } from "@/datafetch";
 interface NavBarProps {
     isLoggedIn: boolean;
 }

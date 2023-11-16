@@ -41,9 +41,12 @@ const Home: React.FC = () => {
   }, []);
 
   //If the user is not logged in, show the login page
-  if (!isLoggedIn) {
-    router.push('/login');
-  }
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push('/login');
+    }
+  }, [])
+  
 
   // If the user is logged in, show the main content
   return (
