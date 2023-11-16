@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { API_URL } from '../../../consts';
 
 
-const LoginPage = () => {
+const RegisterPage = () => {
     const { theme } = {theme: 'light'};
     const router = useRouter();
     const [displayRegister, setDisplayRegister] = useState(false);
@@ -63,7 +63,10 @@ const LoginPage = () => {
             <span className="text-gray-500 ml-2 text-sm font-normal">AgileAI</span>
           </div>
           {/* Form content */}
-          <h2 className="text-xl font-bold mb-10 text-gray-800 text-center">Get started</h2>
+          <h2 className="text-xl font-bold mb-2 text-gray-800 text-center">Get started</h2>
+          <div className="text-gray-400 text-sm font-normal py-3 mb-6 pr-6 pl-3 text-center">
+                Already have an account? <button onClick={() => router.push("/login")} className="hover:text-gray-800">Sign In</button>
+          </div>
           {!displayRegister ? (
           <div className="flex flex-col items-center px-6">
             {/* Login and Sign Up buttons */}
@@ -75,25 +78,25 @@ const LoginPage = () => {
             </div>
             {/* Social Sign In buttons */}
             <button className="flex flex-row justify-between w-full px-6 py-5 mb-2 text-blue-500 bg-transparent rounded border border-blue-500 hover:bg-blue-50">
-              Register with Google
+              Sign up with Google
               <ChevronRight className="ml-2" />
             </button>
             <button className="flex flex-row justify-between w-full px-6 py-5 mb-2 text-blue-500 bg-transparent rounded border border-blue-500 hover:bg-blue-50">
-              Register with Facebook
+              Sign up with Facebook
               <ChevronRight className="ml-2" />
             </button>
             <button className="flex flex-row justify-between w-full px-6 py-5 mb-5 text-blue-500 bg-transparent rounded border border-blue-500 hover:bg-blue-50">
-              Register with Apple ID
+              Sign up with Apple ID
               <ChevronRight className="ml-2" />
             </button>
           </div>
         ) : (
           <div className="flex flex-col items-center px-6">
             <form />
-              <input placeholder="Email" type="email" onChange={handleInputChange} name="email" value={formData.email} required className="text-black border border-gray-400 rounded px-3 py-2"/> 
-              <input placeholder="Password" type="password" onChange={handleInputChange} name="password" value={formData.password} required className="text-black border border-gray-400 rounded px-3 py-2"/>
-              <input placeholder="Confirm Password" type="confirmpassword" name="confirmpassword" className="text-black border border-gray-400 rounded px-3 py-2 "/>
-              <button onClick={handleSubmit} type="submit" className="b w-full justify-between flex flex-row text-gray-400 px-14 hover:bg-gray-300">
+              <input placeholder="Email" type="email" onChange={handleInputChange} name="email" value={formData.email} required className="text-gray-700 border border-gray-300 rounded-sm my-2 px-3 py-2"/> 
+              <input placeholder="Password" type="password" onChange={handleInputChange} name="password" value={formData.password} required className="text-gray-700 border border-gray-300 mb-2 rounded px-3 py-2"/>
+              <input placeholder="Confirm Password" type="confirmpassword" name="confirmpassword" className="text-gray-700 border border-gray-300 mb-6 rounded px-3 py-2"/>
+              <button onClick={handleSubmit} type="submit" className=" w-[50%] justify-between mb-10 flex flex-row text-gray-400 px-4 py-2 hover:bg-gray-100 rounded-md">
                 Sign Up
                 <ChevronRight className="ml-2" />
               </button>
@@ -118,4 +121,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

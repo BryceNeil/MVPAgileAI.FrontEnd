@@ -4,14 +4,19 @@ import { useTheme } from '../theme/ThemeContext';
 import NavActions from './metrics/NavActions';
 import SearchInput from './SearchInput';
 import UserProfileDropdown from './profile/UserProfileDropdown';
-
-const Navbar: React.FC = () => {
+import { getUserProfile, token } from "@/datafetch";
+interface NavBarProps {
+    isLoggedIn: boolean;
+}
+const Navbar: React.FC<NavBarProps> = ({isLoggedIn}) => {
     const [sessionName, setSessionName] = useState('');
     const [isInputVisible, setInputVisible] = useState(true);
     const { theme } = useTheme(); // Use the hook to get the current theme
-
+    const token = typeof window !== 'undefined' ? localStorage.getItem("accessToken") : null;
+            
     const sessionInputRef = useRef<HTMLInputElement | null>(null);
 
+    
     const handleInputSubmit = (e: FormEvent) => {
         e.preventDefault();
 
@@ -40,7 +45,7 @@ const Navbar: React.FC = () => {
 
                 <NavActions/>       
 
-                <UserProfileDropdown loggedIn={false} />
+                <UserProfileDropdown isloggedIn={isLoggedIn} />
             </div>
         </div>
     );

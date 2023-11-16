@@ -2,22 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import Body from './components/Body';
 import Navbar from './components/Navbar';
-import LoginPage from './login/LoginPage';
 import Onboarding from './components/onboarding/Onboarding';
 import { ThemeProvider } from './theme/ThemeContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 const queryClient = new QueryClient();
 
 const Home: React.FC = () => {
+  const router = useRouter();
+  if (typeof localStorage !== 'undefined' && !localStorage.getItem("isLoggedIn")) {
+    // Set an initial value if it doesn't exist
+    localStorage.setItem("isLoggedIn", "false");
+  }
+  const li = typeof window !== 'undefined' ? localStorage.getItem("isLoggedIn") === 'true' : false;
   // New state for managing login status
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(li);
 
   // Initialize showOnboarding state based on localStorage value
   const [showOnboarding, setShowOnboarding] = useState(
-    false
-  );
-  const [showLogin, setShowLogin] = useState(
     false
   );
 
@@ -29,9 +32,6 @@ const Home: React.FC = () => {
   };
   // New effect for checking login status
   useEffect(() => {
-    // Check if user is logged in (for the sake of this example, we use localStorage)
-    const isUserLoggedIn = localStorage.getItem('isLoggedIn');
-    setIsLoggedIn(isUserLoggedIn === 'true');
 
     // Onboarding logic
     const hasCompletedOnboarding = false; //localStorage.getItem('hasCompletedOnboarding');
@@ -40,18 +40,10 @@ const Home: React.FC = () => {
     }
   }, []);
 
-  // Handler for when the user logs in successfully
-  const handleLogin = () => {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('isLoggedIn', 'true');
-    }
-    setIsLoggedIn(true);
-  };
-
-  // If the user is not logged in, show the login page
-  // if (!isLoggedIn) {
-  //   return <LoginPage onLogin={handleLogin} />;
-  // }
+  //If the user is not logged in, show the login page
+  if (!isLoggedIn) {
+    router.push('/login');
+  }
 
   // If the user is logged in, show the main content
   return (
@@ -59,11 +51,11 @@ const Home: React.FC = () => {
 
     <ThemeProvider>
       <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn}/>
         {showOnboarding ? (
           <Onboarding closeOnboarding={closeOnboarding} />
         ) : (
-          <Body />
+          <Body isLoggedIn={isLoggedIn}/>
         )}
       </div>
     </ThemeProvider>
