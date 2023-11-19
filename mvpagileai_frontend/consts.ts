@@ -1,1 +1,1 @@
-export const API_URL = "https://184.72.209.168:8000/api";
+export const API_URL = "https://api.withagile.ai:8000/api";
