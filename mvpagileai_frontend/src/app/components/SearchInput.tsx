@@ -25,11 +25,16 @@ const SearchInput: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-72 rounded-md p-0.5 bg-gray-200 dark:bg-semidarkgray">
+    <div className="relative w-auto lg:w-72 rounded-md p-0.5 ml-2 bg-gray-200 dark:bg-semidarkgray">
       <div 
-        className={`absolute px-4 left-6 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 dark:text-icongray pointer-events-none ${isFocused || inputValue ? 'hidden' : ''}`}
+        className={`hidden lg:block absolute px-4 left-6 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 dark:text-icongray pointer-events-none ${isFocused || inputValue ? 'hidden' : ''}`}
       >
         Type ⌘ + J to search job title
+      </div>
+      <div 
+        className={`absolute lg:hidden block px-4 left-6 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 dark:text-icongray pointer-events-none ${isFocused || inputValue ? 'hidden' : ''}`}
+      >
+        Search job title
       </div>
       <input 
         ref={inputRef}

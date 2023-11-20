@@ -100,11 +100,11 @@ const Body: React.FC<BodyProps> = ({isLoggedIn}) => {
 
   return (
     <div
-      className="flex flex-grow  p-0 overflow-hidden"
+      className="flex flex-grow p-0 overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseUp={() => setIsResizing(null)}
     >
-      <div className="flex w-full flex-grow">
+      <div className="flex flex-col lg:flex-row w-full flex-grow">
         <div
           className={`bg-white dark:bg-darkestgray rounded-lg overflow-hidden ${
             selectedBox === 1 ? "border border-gray-200 dark:border-medgray" : ""

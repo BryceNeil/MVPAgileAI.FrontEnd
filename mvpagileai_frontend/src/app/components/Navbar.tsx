@@ -29,11 +29,11 @@ const Navbar: React.FC<NavBarProps> = ({isLoggedIn}) => {
     };
 
     return (
-        <div className={`h-8 flex items-center justify-between px-4 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+        <div className={`h-8 flex flex-row items-center justify-between px-4 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
             {/* Logo and navigation arrows */}
             <div className="flex items-center">
                 <img src="/AgileAILogo4.svg" alt="Logo" className={`w-10 h-7 mr-2 ${theme === 'dark' ? 'filter invert' : ''}`} />
-                <h2 className={`w-full flex items-center h-8 py-0.5 px-2 text-sm rounded-md ${theme === 'dark' ? 'bg-semidarkgray text-white' : 'bg-gray-200 text-gray-500'}`}>Google APM</h2>
+                <h2 className={`w-full hidden md:flex items-center h-8 py-0.5 px-2 text-sm rounded-md ${theme === 'dark' ? 'bg-semidarkgray text-white' : 'bg-gray-200 text-gray-500'}`}>Google APM</h2>
             </div>
 
             {/* Other navbar items */}
@@ -41,8 +41,10 @@ const Navbar: React.FC<NavBarProps> = ({isLoggedIn}) => {
                 <SearchInput/>
                 
                 <div className={`w-px h-6 mx-3 ${theme === 'dark' ? 'bg-icongray' : 'bg-gray-300'}`}></div> 
-
-                <NavActions/>       
+                <div className="hidden md:flex">
+                    <NavActions/>  
+                </div>
+                     
 
                 <UserProfileDropdown isloggedIn={isLoggedIn} />
             </div>
