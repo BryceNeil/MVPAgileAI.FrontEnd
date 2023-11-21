@@ -9,27 +9,7 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ from, text }) => {
   const accessToken = typeof window !== 'undefined' ? localStorage.getItem("accessToken") || '' : undefined;
-  const userData = getUserProfile(accessToken);
-  const [email, setEmail] = useState('');
-  const [initial, setInitial] = useState('');
-  useEffect(() => {
-    if (accessToken) {
-        getUserProfile(accessToken)
-            .then(userData => {
-                if (userData && userData.email) {
-                    const userEmail = userData.email;
-                    setEmail(userEmail);
-                    const userInitial = userEmail.charAt(0);
-                    setInitial(userInitial);
-                } else {
-                    console.error('User data or email not available.');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-            });
-    }
-}, [accessToken]);
+  const initial = typeof window !== 'undefined' ? localStorage.getItem("initial") || '' : undefined;
   return (
     <div className={`flex items-start w-full p-4 border-t border-gray-100 dark:border-semidarkgray ${from === 'computer' ? 'bg-white dark:bg-darkgray flex-row' : 'bg-white dark:bg-darkgray flex-row-reverse'}`}>
       <div className="mx-4">
