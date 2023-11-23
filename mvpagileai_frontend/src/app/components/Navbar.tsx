@@ -4,18 +4,24 @@ import { useTheme } from '../theme/ThemeContext';
 import NavActions from './metrics/NavActions';
 import SearchInput from './SearchInput';
 import UserProfileDropdown from './profile/UserProfileDropdown';
+import { getUserProfile } from '@/datafetch';
+import { useQuery } from '@tanstack/react-query';
+import { access } from 'fs';
 interface NavBarProps {
-    isLoggedIn: boolean;
+    accessToken: string | undefined;
 }
-const Navbar: React.FC<NavBarProps> = ({isLoggedIn}) => {
+const Navbar: React.FC<NavBarProps> = ({accessToken}) => {
     const [sessionName, setSessionName] = useState('');
     const [isInputVisible, setInputVisible] = useState(true);
     const { theme } = useTheme(); // Use the hook to get the current theme
-    const token = typeof window !== 'undefined' ? localStorage.getItem("accessToken") : null;
-            
     const sessionInputRef = useRef<HTMLInputElement | null>(null);
 
-    
+    const { data: authProfile, isSuccess } = useQuery({
+        queryKey: ["auth"],
+        queryFn: () => getUserProfile(accessToken),
+      });
+
+
     const handleInputSubmit = (e: FormEvent) => {
         e.preventDefault();
 
@@ -45,8 +51,9 @@ const Navbar: React.FC<NavBarProps> = ({isLoggedIn}) => {
                     <NavActions/>  
                 </div>
                      
-
-                <UserProfileDropdown isloggedIn={isLoggedIn} />
+                {authProfile && accessToken &&
+                    <UserProfileDropdown email={authProfile.email} user_id={authProfile.user_id} accessToken={accessToken} />
+                }
             </div>
         </div>
     );

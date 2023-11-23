@@ -11,7 +11,8 @@ import { Send } from 'react-feather'; // Import the icon
 interface InterviewBodyProps {
   questionId: string;
   userId: string;
-  token: string
+  userInitial: string | undefined;
+  token: string | undefined
 }
 type MessageType = {
   from: string;
@@ -22,6 +23,7 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({
   questionId,
   userId,
   token,
+  userInitial,
 }) => {
  
   const [abortController, setAbortController] = useState(new AbortController());
@@ -144,7 +146,7 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({
     <div className="h-full w-full text-sm relative rounded-lg overflow-y-hidden">
      <div className="flex h-[100%] flex-col overflow-y-scroll">
      {messages && messages.map((message: MessageType, ix: number)=>(
-      <Message from={message.from} text={message.text}></Message>
+      <Message from={message.from} text={message.text} initial={userInitial}></Message>
      ))}
       <div className="h-full  pb-24 " ref={messagesEndRef}></div>
      </div>

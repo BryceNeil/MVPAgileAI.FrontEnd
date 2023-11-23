@@ -7,42 +7,25 @@ import { useRouter } from "next/navigation";
 import { getUserProfile } from '@/datafetch';
 
 interface UserProfileDropdownProps {
-    isloggedIn: boolean;
+    email?: string,
+    user_id?: string,
+    accessToken: string | undefined
 }
 
 const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
-    isloggedIn,
+    email,
+    user_id,
+    accessToken,
 }) => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
-    const [email, setEmail] = useState('');
-    const [initial, setInitial] = useState('');
+    const initial =  email?.charAt(0);
     const wrapperRef = useRef(null);
     const router = useRouter();
-    const accessToken = typeof window !== 'undefined' ? localStorage.getItem("accessToken") || '' : undefined;
-    const userData = getUserProfile(accessToken);
-    useEffect(() => {
-        if (accessToken) {
-            getUserProfile(accessToken)
-                .then(userData => {
-                    if (userData && userData.email) {
-                        const userEmail = userData.email;
-                        setEmail(userEmail);
-                        const userInitial = userEmail.charAt(0);
-                        setInitial(userInitial);
-                    } else {
-                        console.error('User data or email not available.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
-        }
-    }, [accessToken]);
+    
     const iconSize = 24
 
     const logout = () => {
-        localStorage.setItem("accessToken", "");
-        localStorage.setItem("isLoggedIn", "false");
+        localStorage.clear();
         router.push("/login"); // Navigate to the desired route
     }
 
@@ -61,7 +44,7 @@ const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
             {isDropdownVisible && (
                 <div className="absolute right-0 mt-2 py-2 px-2 min-w-max bg-white dark:bg-darkgray rounded-md shadow-xl z-20">
                     {/* User Info */}
-                    {isloggedIn ? (
+                    {accessToken ? (
                         <div>
                             <div className="block pl-2 pr-4 py-2 text-sm text-gray-700 dark:text-white">
                                 <div className="flex items-center">

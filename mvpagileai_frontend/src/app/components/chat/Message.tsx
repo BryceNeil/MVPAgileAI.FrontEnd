@@ -1,15 +1,15 @@
+"use client";
 import React, { useEffect, useState } from 'react';
-import { getUserProfile } from '@/datafetch';
 // Import your UserIcon and AgileAI Icon here
 
 interface MessageProps {
   from : string,
   text : string,
+  initial: string | undefined,
 }
 
-const Message: React.FC<MessageProps> = ({ from, text }) => {
+const Message: React.FC<MessageProps> = ({ from, text, initial }) => {
   const accessToken = typeof window !== 'undefined' ? localStorage.getItem("accessToken") || '' : undefined;
-  const initial = typeof window !== 'undefined' ? localStorage.getItem("initial") || '' : undefined;
   return (
     <div className={`flex items-start w-full p-4 border-t border-gray-100 dark:border-semidarkgray ${from === 'computer' ? 'bg-white dark:bg-darkgray flex-row' : 'bg-white dark:bg-darkgray flex-row-reverse'}`}>
       <div className="mx-4">

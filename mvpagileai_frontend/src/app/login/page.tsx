@@ -39,10 +39,7 @@ const LoginPage = () => {
           });
           if (response.ok) {
             const responseData = await response.json();
-            const accessToken = responseData;
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('isLoggedIn', 'true');
-            console.log("this has run right before push /");
+            localStorage.setItem('accessToken', responseData);
             router.push('/');
           } 
             else {

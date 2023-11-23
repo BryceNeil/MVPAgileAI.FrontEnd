@@ -4,20 +4,15 @@ import Body from './components/Body';
 import Navbar from './components/Navbar';
 import Onboarding from './components/onboarding/Onboarding';
 import { ThemeProvider } from './theme/ThemeContext';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 const queryClient = new QueryClient();
 
 const Home: React.FC = () => {
+
   const router = useRouter();
-  if (typeof localStorage !== 'undefined' && !localStorage.getItem("isLoggedIn")) {
-    // Set an initial value if it doesn't exist
-    localStorage.setItem("isLoggedIn", "false");
-  }
-  const li = typeof window !== 'undefined' ? localStorage.getItem("isLoggedIn") === 'true' : false;
-  // New state for managing login status
-  const [isLoggedIn, setIsLoggedIn] = useState(li);
+  const accessToken = typeof window !== 'undefined' ? localStorage.getItem("accessToken") || '' : undefined;
 
   // Initialize showOnboarding state based on localStorage value
   const [showOnboarding, setShowOnboarding] = useState(
@@ -40,28 +35,30 @@ const Home: React.FC = () => {
     }
   }, []);
 
-  //If the user is not logged in, show the login page
   useEffect(() => {
-    if (!isLoggedIn) {
-      router.push('/login');
+    if(!accessToken){
+      console.log("Not seein yo auth profile fuck face")
+      router.push("/login")
     }
-  }, [])
+  }, [accessToken])
   
 
   // If the user is logged in, show the main content
   return (
-    <QueryClientProvider client={queryClient}>
-
-    <ThemeProvider>
-      <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
-        <Navbar isLoggedIn={isLoggedIn}/>
-        {showOnboarding ? (
-          <Onboarding closeOnboarding={closeOnboarding} />
-        ) : (
-          <Body isLoggedIn={isLoggedIn}/>
-        )}
-      </div>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>  
+      <ThemeProvider>
+        <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
+          <Navbar accessToken={accessToken}/>
+          {showOnboarding ? (
+            <Onboarding closeOnboarding={closeOnboarding} />
+          ) : (
+            (accessToken &&
+              <Body accessToken={accessToken}/>
+            )
+            
+          )}
+        </div>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

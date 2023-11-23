@@ -1,7 +1,29 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../consts";
-
+import { User, IUseSignUp  } from '@/app/types';
 // Replace w/ a localstorage system
-export const token = ""
+
+export const token = typeof window !== 'undefined' ? localStorage.getItem("accessToken") || '' : undefined;
+
+export async function signUp (email: string, password: string, confirmPassword: string): Promise<User> {
+  if (password !== confirmPassword){
+    throw new Error("Passwords do not match")
+  } else {
+    const response = await fetch(`${API_URL}/auth/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email, password})
+    })
+    if (!response.ok)
+      throw new Error('Failed on sign up request');
+    return await response.json()
+    
+  }
+}
+
+
 
 export const getUserProfile = async (accessToken: string = '') => {
     const res = await fetch(`${API_URL}/auth/profile`, {
@@ -12,7 +34,7 @@ export const getUserProfile = async (accessToken: string = '') => {
     });
 
     if (res.ok) {
-        console.log("AUTHED")
+        console.log("GETTING PROFILE");
         return await res.json();
     } else {
         return null;

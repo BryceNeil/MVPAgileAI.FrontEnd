@@ -5,6 +5,7 @@ import { ChevronRight } from 'react-feather'; // Import the icon
 import { useTheme } from '@/app/theme/ThemeContext'; // Ensure this is the correct path
 import { useRouter } from "next/navigation";
 import { API_URL } from '../../../consts';
+import { signUp } from '@/datafetch';
 
 
 const RegisterPage = () => {
@@ -14,6 +15,7 @@ const RegisterPage = () => {
     const [formData, setFormData] = useState({
       email: '',
       password: '',
+      confirmPassword: '',
     });
 
     const toggleRegister = () => {
@@ -29,23 +31,11 @@ const RegisterPage = () => {
 
     const handleSubmit = async () => {
       try {
-        const response = await fetch(`${API_URL}/auth/signup`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password,
-          }),
-        });
-        if (response.ok) {
-          router.push('/login');
-        } 
-          else {
-            const errorData = await response.json();
-            console.error('Registration failed:', errorData)
-        }
+        const res = signUp(formData.email, formData.password, formData.confirmPassword);
+        if(!res)
+          console.log("error")
+        else
+          router.push('/login')
       } catch (error){
         console.error('Error:', error);
       }
@@ -95,7 +85,7 @@ const RegisterPage = () => {
             <form />
               <input placeholder="Email" type="email" onChange={handleInputChange} name="email" value={formData.email} required className="text-gray-700 border border-gray-300 rounded-sm my-2 px-3 py-2"/> 
               <input placeholder="Password" type="password" onChange={handleInputChange} name="password" value={formData.password} required className="text-gray-700 border border-gray-300 mb-2 rounded px-3 py-2"/>
-              <input placeholder="Confirm Password" type="confirmpassword" name="confirmpassword" className="text-gray-700 border border-gray-300 mb-6 rounded px-3 py-2"/>
+              <input placeholder="confirmPassword" type="password" onChange={handleInputChange} name="confirmPassword" value={formData.confirmPassword} required className="text-gray-700 border border-gray-300 mb-2 rounded px-3 py-2"/>
               <button onClick={handleSubmit} type="submit" className=" w-[50%] justify-between mb-10 flex flex-row text-gray-400 px-4 py-2 hover:bg-gray-100 rounded-md">
                 Sign Up
                 <ChevronRight className="ml-2" />

@@ -10,11 +10,11 @@ import WhiteboardWorkspace from "./workspace/WhiteboardWorkspace";
 // import Plugins from "./workspace/Plugins";
 import InterviewBody from "./chat/InterviewBody";
 import { useQuery } from "@tanstack/react-query";
-import { getCaseQuestions, getCases, getUserProfile, token } from "@/datafetch";
+import { getCaseQuestions, getCases, getUserProfile } from "@/datafetch";
 import { useRouter } from "next/navigation";
 
 interface BodyProps {
-  isLoggedIn: boolean;
+  accessToken: string | undefined,
 }
 
 const mapIdToWorkspace = (id: number) => {
@@ -32,10 +32,9 @@ const mapIdToWorkspace = (id: number) => {
   }
 };
 
-const Body: React.FC<BodyProps> = ({isLoggedIn}) => {
+const Body: React.FC<BodyProps> = ({accessToken}) => {
   /* Check logged in */
   const router = useRouter();
-  const accessToken = typeof window !== 'undefined' ? localStorage.getItem("accessToken") || '' : undefined;
   const { data: authProfile, isSuccess } = useQuery({
     queryKey: ["auth"],
     queryFn: () => getUserProfile(accessToken),
@@ -97,7 +96,6 @@ const Body: React.FC<BodyProps> = ({isLoggedIn}) => {
       setBottomSize(newBottomSize);
     }
   };
-
   return (
     <div
       className="flex flex-grow p-0 overflow-hidden"
@@ -208,7 +206,8 @@ const Body: React.FC<BodyProps> = ({isLoggedIn}) => {
                   <InterviewBody
                     questionId={questionsData[currentQuestionIndex].questionId}
                     userId={authProfile.user_id}
-                    token={token}
+                    token={accessToken}
+                    userInitial={authProfile.email.charAt(0)}
                   />
                 )}
               </div>
