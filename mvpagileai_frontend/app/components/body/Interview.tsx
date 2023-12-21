@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import InterviewAILogo from "../chat/InterviewAILogo";
 import InterviewBody from "../chat/InterviewBody";
-import { useQuery } from "@tanstack/react-query";
-import { getCaseQuestions, getCases } from "@/datafetch";
 import { User } from "@/app/types";
 import { useCase } from "@/app/props/CaseProvider";
 

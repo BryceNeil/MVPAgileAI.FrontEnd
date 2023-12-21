@@ -5,7 +5,7 @@ import Message from "./Message"; // Adjust the import path if necessary
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
 import {fetchEventSource} from "@microsoft/fetch-event-source";
 import { API_URL } from "@/consts";
-import { flushSync } from "react-dom";
+
 import { getChatHistory } from "@/datafetch";
 import { Send } from 'react-feather'; // Import the icon
 
@@ -55,7 +55,7 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token
 
     const sendAnswer = async () =>{
         const fetchData = async () => {
-          await fetchEventSource(`${API_URL}/content/answer`, {
+          await fetchEventSource(`${API_URL}/content/conversation`, {
             method: "POST",
             body: JSON.stringify({
               userId: userId,
@@ -95,44 +95,49 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token
         }
         await fetchData();
       }
-      const handleAddMessage = async () =>{
-   
-        // Def find out how to not use flushSync here (esp. twice)
-        flushSync(()=>{
-           const newMessage = {
-             from: "user",
-             text: answer,
-           };
-          setMessages(prev=>[...prev, newMessage]);
-        })
-        flushSync(()=>{
-          const newMessage = {
-            from: "computer",
-            text: ""
-          }
-          setMessages(prev=>[...prev, newMessage]);
-        })
+      const handleAddMessage = async () => {
+        const newUserMessage = {
+          from: "user",
+          text: answer,
+        };
+        setMessages((prev) => [...prev, newUserMessage]);
+      
+        const newComputerMessage = {
+          from: "computer",
+          text: "",
+        };
+        setMessages((prev) => [...prev, newComputerMessage]);
+      
         setAnswer("");
-        await sendAnswer()
+        await sendAnswer();
+      };
+
+      const handleSubmitAnswer = async () => {
+        
       }
 
     return (
-    <div className="h-full w-full text-sm relative rounded-lg overflow-y-hidden">
-     <div className="flex h-[100%] flex-col overflow-y-scroll">
-     {messages && messages.map((message: MessageType, ix: number)=>(
-      <Message key={ix} from={message.from} text={message.text} initial={userInitial}></Message> ))}
-      <div className="h-full  pb-24 " ref={messagesEndRef}></div>
-     </div>
-      <div className="absolute flex flex-row bottom-0 w-full h-12 bg-white dark:bg-darkgray border-t border-gray-100 dark:border-medgray">
-        <input className="flex-1 bg-white p-2 ml-4 my-1 dark:bg-darkgray border-2 rounded-l-md h-[90%] text-black dark:text-white" type="text" onChange={(e) => setAnswer(e.target.value)} value={answer} 
-        onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault(); // Prevent default form submission behavior
-              handleAddMessage(); // Trigger the same action as the button click
-            } }}
-        />
-        <button onClick={async ()=> await handleAddMessage()} className="w-12 h-12 rounded-r-md border-y-2 border-r-2 bg-gray-100 hover:bg-gray-200 h-[90%] my-1 mr-8">
-          <Send size={16} className="text-gray-600 dark:text-icongray mx-3" />
+    <div className="h-full flex flex-col justify-between w-full text-sm relative rounded-lg overflow-y-hidden">
+      <div className="flex flex-col h-full overflow-y-scroll">
+        {messages && messages.map((message: MessageType, ix: number)=>(
+          <Message key={ix} from={message.from} text={message.text} initial={userInitial}></Message> ))}
+          <div className="h-full  pb-24 " ref={messagesEndRef}></div>
+      </div>
+     <div className="px-8 pt-4">
+        <div className="flex flex-row bottom-0 w-full h-12 bg-white dark:bg-darkgray border-t border-gray-100 dark:border-darkgray">
+          <input className="flex-1 bg-white p-2 my-1 dark:bg-darkgray border-y-2 border-l-2 rounded-l-md h-[90%] text-black dark:text-white" type="text" onChange={(e) => setAnswer(e.target.value)} value={answer} 
+          onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault(); // Prevent default form submission behavior
+                handleAddMessage(); // Trigger the same action as the button click
+              } }}
+          />
+          <button onClick={async ()=> await handleAddMessage()} className="w-12 h-12 rounded-r-md border-y-2 border-r-2 bg-gray-100 dark:bg-medgray hover:bg-gray-200 h-[90%] my-1">
+            <Send size={16} className="text-gray-600 dark:text-icongray mx-3" />
+          </button>
+        </div>
+        <button onClick={()=>{}} className="text-gray-800 dark:text-gray-100 mt-2">
+            Submit Answer
         </button>
       </div>
     </div>

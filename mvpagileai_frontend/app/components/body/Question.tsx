@@ -2,11 +2,6 @@
 import React, {useState } from "react";
 import QuestionNavigator from "../question/QuestionNavigator";
 import QuestionBox from "../question/QuestionBox";
-import { useQuery } from "@tanstack/react-query";
-import { getCaseQuestions, getCases, getUserProfile } from "@/datafetch";
-import { useRouter } from "next/navigation";
-
-
 
 
 const Question = () => {  
