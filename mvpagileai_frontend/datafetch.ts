@@ -99,13 +99,14 @@ export const getChatHistory = async(questionId: string) =>{
   }
 }
 
-export const enterNewCase = async(caseData: CaseData)=> {
+export const enterNewCase = async(caseData: CaseData, userId?: string)=> {
+  const bodyData = { caseData, userId}
   const response = await fetch(`${API_URL}/content/enter/case`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(caseData)
+    body: JSON.stringify(bodyData)
   })
   if (!response.ok)
     throw new Error('Failed to Enter case');

@@ -39,25 +39,29 @@ const Navbar: React.FC<NavBarProps> = ({accessToken}) => {
     return (
         <div className={`h-8 flex flex-row items-center justify-between px-4 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
             {/* Logo and navigation arrows */}
-            <div className="flex items-center">
-                <img src="/AgileAILogo4.svg" alt="Logo" className={`w-10 h-7 mr-2 ${theme === 'dark' ? 'filter invert' : ''}`} />
-                <JobTitleDisplay/>
-            </div>
+            {authProfile && accessToken &&
+                <>
+                    <div className="flex items-center">
+                        <img src="/AgileAILogo4.svg" alt="Logo" className={`w-10 h-7 mr-2 ${theme === 'dark' ? 'filter invert' : ''}`} />
+                        <JobTitleDisplay/>
+                    </div>
 
-            {/* Other navbar items */}
-            <div className="flex items-center">
-                <SearchInput/>
-                
-                <div className={`w-px h-6 mx-3 ${theme === 'dark' ? 'bg-icongray' : 'bg-gray-300'}`}></div> 
-                <div className="hidden md:flex">
-                    <NavActions/>  
-                </div>
-                     
-                {authProfile && accessToken &&
-                    <UserProfileDropdown email={authProfile.email} user_id={authProfile.user_id} accessToken={accessToken} />
-                }
-            </div>
+                    <div className="flex items-center">
+                        <SearchInput userId={authProfile.user_id}/>
+                        
+                        <div className={`w-px h-6 mx-3 ${theme === 'dark' ? 'bg-icongray' : 'bg-gray-300'}`}></div> 
+                        <div className="hidden md:flex">
+                            <NavActions/>  
+                        </div>
+                            
+                        
+                            <UserProfileDropdown email={authProfile.email} user_id={authProfile.user_id} accessToken={accessToken} />
+                        
+                    </div>
+                </>
+            }
         </div>
+        
     );
 };
 

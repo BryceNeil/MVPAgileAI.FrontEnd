@@ -7,8 +7,7 @@ import QuestionBox from "../question/QuestionBox";
 const Question = () => {  
     const [leftSize, setLeftSize] = useState(70);
     const [selectedBox, setSelectedBox] = useState<number | null>(null); // State to keep track of the selected box
-    const [caseIndex, setCaseIndex] = useState(0);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+
 
     
 

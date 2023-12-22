@@ -6,7 +6,10 @@ import Loader from '@/app/components/Loader'
 import { useLoader } from '../props/LoadProvider';
 import { CaseData } from '../types';
 
-const SearchInput: React.FC = () => {
+interface SearchInputProps {
+  userId?: string
+}
+const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const { isLoading, setIsLoading } = useLoader();
@@ -17,8 +20,8 @@ const SearchInput: React.FC = () => {
     setIsFocused(true);
   }
 
-  const enterCaseData = async (caseData: CaseData) => {
-    return await enterNewCase(caseData)
+  const enterCaseData = async (caseData: CaseData, userId?: string) => {
+    return await enterNewCase(caseData, userId)
   }
 
   const updateDataWithIds = (caseData:CaseData, ids: any) => {
@@ -35,16 +38,14 @@ const SearchInput: React.FC = () => {
     try {
       const caseData = await getCase(inputValue);
       if (caseData) {
-        // console.log("DATA: ", caseData);
-        const ids = await enterCaseData(caseData);
+        const ids = await enterCaseData(caseData, userId);
         const caseDataComp = updateDataWithIds(caseData, ids)
-        console.log(caseDataComp);
         setCaseData(caseDataComp);
       }
     } catch (error) {
       console.error("Error fetching case:", error);
     } finally {
-      setIsLoading(false); // Set loading to false when search completes (success or failure)
+      setIsLoading(false); // Set loading o false when search completes (success or failure)
     }
   };
 
