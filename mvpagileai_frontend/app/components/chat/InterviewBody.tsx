@@ -32,7 +32,7 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token
           );
           if (res.ok) {
             const data =  await res.json();
-            setMessages(prev=>[...prev, ...data])
+            setMessages(prev=>[DEFAULT_MESSAGE, ...data])
             return data;
           } else {
             return [];

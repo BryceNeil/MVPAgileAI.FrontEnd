@@ -17,28 +17,33 @@ export type MessageType = {
     text: string;
 }
 
-export type CaseData = {
-    jobTitle: string;
-    scenario: string;
-    caseId: string;
-    questions: {
-      questionNumber: number;
-      questionId: string;
-      question: string;
-      difficultyLevel: string;
-      relevantSkills: string[];
-      rubric: {
-        criterion: string;
-        description: string;
-        weight: number;
-      }[];
-      framework: {
-        overview: string;
-        steps: {
-          stepNumber: number;
-          description: string;
-          details: string;
-        }[];
-      };
-    }[];
+// Assuming defined types
+export type Step = {
+  stepNumber: number;
+  description: string;
+  details: string;
+};
+
+export type Question = {
+  questionNumber: number;
+  questionId: string;
+  question: string;
+  difficultyLevel: string;
+  relevantSkills: string[];
+  rubric: {
+      criterion: string;
+      description: string;
+      weight: number;
+  }[];
+  framework: {
+      overview: string;
+      steps: Step[]; // Assuming you have Step defined
   };
+};
+
+export type CaseData = {
+  jobTitle: string;
+  scenario: string;
+  caseId: string;
+  questions: Question[];
+};

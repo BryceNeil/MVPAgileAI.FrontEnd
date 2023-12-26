@@ -114,6 +114,21 @@ export const enterNewCase = async(caseData: CaseData, userId?: string)=> {
   return await response.json()
 }
 
+export const fetchCaseData = async(userId?: string) => {
+  const response = await fetch(`${API_URL}/content/find/case`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userId)
+  })
+  if (!response.ok)
+    throw new Error('Failed to find case');
+  
+  return await response.json()
+}
+
 
 // Mutations
 

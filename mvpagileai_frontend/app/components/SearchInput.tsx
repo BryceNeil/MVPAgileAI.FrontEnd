@@ -1,4 +1,4 @@
-import { enterNewCase, getCase } from '@/datafetch';
+import { enterNewCase, fetchCaseData, getCase } from '@/datafetch';
 import React, { useState, useEffect, useRef, } from 'react';
 import { Search } from 'react-feather';
 import { useCase } from '../props/CaseProvider';
@@ -14,11 +14,141 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
   const [inputValue, setInputValue] = useState('');
   const { isLoading, setIsLoading } = useLoader();
   const inputRef = useRef<HTMLInputElement>(null);
-  const { setCaseData } = useCase()
+  const { setCaseData, caseData } = useCase()
 
   const handleInputFocus = () => {
     setIsFocused(true);
   }
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const prevCase = await fetchCaseData(userId); // Wait for the promise to resolve
+            console.log(prevCase);
+
+            if (prevCase) {
+                const transformedData = {
+                    jobTitle: prevCase[0].title || '',
+                    scenario: prevCase[0].description || '',
+                    caseId: prevCase[0].case_id || '',
+                    questions: [
+                      {
+                        questionNumber: 1,
+                        questionId: prevCase[0].question_id || '',
+                        question: prevCase[0].question || '',
+                        difficultyLevel: prevCase[0].difficultylevel || '',
+                        framework: {
+                          overview: prevCase[0].fr_overview || '',
+                          steps: [{
+                              stepNumber: prevCase[0].step_number,
+                              description: prevCase[0].description || '',
+                              details: prevCase[0].details || '',
+                          },
+                          {
+                            stepNumber: prevCase[1].step_number,
+                            description: prevCase[1].description || '',
+                            details: prevCase[1].details || '',
+                          }
+                        ]
+                        }
+                        
+                    },
+                    {
+                        questionNumber: 2,
+                        questionId: prevCase[3].question_id || '',
+                        question: prevCase[3].question || '',
+                        difficultyLevel: prevCase[3].difficultylevel || '',
+                        framework: {
+                          overview: prevCase[3].fr_overview || '',
+                          steps: [{
+                            stepNumber: prevCase[3].step_number,
+                            description: prevCase[3].description || '',
+                            details: prevCase[3].details || '',
+                          },
+                          {
+                            stepNumber: prevCase[4].step_number,
+                            description: prevCase[4].description || '',
+                            details: prevCase[4].details || '',
+                          },
+                        ]
+                        }
+                    },
+                    {
+                        questionNumber: 3,
+                        questionId: prevCase[6].question_id || '',
+                        question: prevCase[6].question || '',
+                        difficultyLevel: prevCase[6].difficultylevel || '',
+                        framework: {
+                          overview: prevCase[6].fr_overview || '',
+                          steps: [{
+                            stepNumber: prevCase[6].step_number,
+                            description: prevCase[6].description || '',
+                            details: prevCase[6].details || '',
+                          },
+                          {
+                            stepNumber: prevCase[7].step_number,
+                            description: prevCase[7].description || '',
+                            details: prevCase[7].details || '',
+                          }
+                        ]
+                        }
+                    },
+                    {
+                        questionNumber: 4,
+                        questionId: prevCase[9].question_id || '',
+                        question: prevCase[9].question || '',
+                        difficultyLevel: prevCase[9].difficultylevel || '',
+                        framework: {
+                          overview: prevCase[9].fr_overview || '',
+                          steps: [{
+                            stepNumber: prevCase[9].step_number,
+                            description: prevCase[9].description || '',
+                            details: prevCase[9].details || '',
+                          },
+                          {
+                            stepNumber: prevCase[10].step_number,
+                            description: prevCase[10].description || '',
+                            details: prevCase[10].details || '',
+                          }
+                        ]
+                        }
+                    },
+                    {
+                        questionNumber: 5,
+                        questionId: prevCase[12].question_id || '',
+                        question: prevCase[12].question || '',
+                        difficultyLevel: prevCase[12].difficultylevel || '',
+                        framework: {
+                          overview: prevCase[12].fr_overview || '',
+                          steps: [{
+                            stepNumber: prevCase[12].step_number,
+                            description: prevCase[12].description || '',
+                            details: prevCase[12].details || '',
+                          },
+                          {
+                            stepNumber: prevCase[13].step_number,
+                            description: prevCase[13].description || '',
+                            details: prevCase[13].details || '',
+                          }
+                        ]
+                        }
+                    },
+                    ]
+                };
+
+                setCaseData(transformedData);
+            } else {
+                console.log('No case data found');
+                // Handle the case when no data is found
+            }
+        } catch (error) {
+            console.error('Error fetching case data:', error);
+        }
+    };
+
+    fetchData();
+}, [userId]); // Include caseData in the dependency array
 
   const enterCaseData = async (caseData: CaseData, userId?: string) => {
     return await enterNewCase(caseData, userId)
