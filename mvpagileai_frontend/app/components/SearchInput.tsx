@@ -42,12 +42,12 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                           overview: prevCase[0].fr_overview || '',
                           steps: [{
                               stepNumber: prevCase[0].step_number,
-                              description: prevCase[0].description || '',
+                              description: prevCase[0].frame || '',
                               details: prevCase[0].details || '',
                           },
                           {
                             stepNumber: prevCase[1].step_number,
-                            description: prevCase[1].description || '',
+                            description: prevCase[1].frame|| '',
                             details: prevCase[1].details || '',
                           }
                         ]
@@ -63,12 +63,12 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                           overview: prevCase[3].fr_overview || '',
                           steps: [{
                             stepNumber: prevCase[3].step_number,
-                            description: prevCase[3].description || '',
+                            description: prevCase[3].frame || '',
                             details: prevCase[3].details || '',
                           },
                           {
                             stepNumber: prevCase[4].step_number,
-                            description: prevCase[4].description || '',
+                            description: prevCase[4].frame || '',
                             details: prevCase[4].details || '',
                           },
                         ]
@@ -83,12 +83,12 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                           overview: prevCase[6].fr_overview || '',
                           steps: [{
                             stepNumber: prevCase[6].step_number,
-                            description: prevCase[6].description || '',
+                            description: prevCase[6].frame || '',
                             details: prevCase[6].details || '',
                           },
                           {
                             stepNumber: prevCase[7].step_number,
-                            description: prevCase[7].description || '',
+                            description: prevCase[7].frame || '',
                             details: prevCase[7].details || '',
                           }
                         ]
@@ -103,12 +103,12 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                           overview: prevCase[9].fr_overview || '',
                           steps: [{
                             stepNumber: prevCase[9].step_number,
-                            description: prevCase[9].description || '',
+                            description: prevCase[9].frame || '',
                             details: prevCase[9].details || '',
                           },
                           {
                             stepNumber: prevCase[10].step_number,
-                            description: prevCase[10].description || '',
+                            description: prevCase[10].frame || '',
                             details: prevCase[10].details || '',
                           }
                         ]
@@ -123,12 +123,12 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                           overview: prevCase[12].fr_overview || '',
                           steps: [{
                             stepNumber: prevCase[12].step_number,
-                            description: prevCase[12].description || '',
+                            description: prevCase[12].frame || '',
                             details: prevCase[12].details || '',
                           },
                           {
                             stepNumber: prevCase[13].step_number,
-                            description: prevCase[13].description || '',
+                            description: prevCase[13].frame || '',
                             details: prevCase[13].details || '',
                           }
                         ]
