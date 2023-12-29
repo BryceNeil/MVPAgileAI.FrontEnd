@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "./consts";
-import { CaseData } from "@/app/types"
+import { CaseData, Framework, Rubric } from "@/app/types"
 import { User, IUseSignUp  } from '@/app/types';
 // Replace w/ a localstorage system
 
@@ -100,7 +100,7 @@ export const getChatHistory = async(questionId: string) =>{
 }
 
 export const enterNewCase = async(caseData: CaseData, userId?: string)=> {
-  const bodyData = { caseData, userId}
+  const bodyData = { caseData, userId }
   const response = await fetch(`${API_URL}/content/enter/case`, {
     method: 'POST',
     headers: {
@@ -129,6 +129,29 @@ export const fetchCaseData = async(userId?: string) => {
   return await response.json()
 }
 
+export const evaluate = async(answer: string, userId: string, questionId: string, rubric: Rubric[], question: string, caseDesc: string) => {
+  const res = await fetch(`${API_URL}/content/evaluate`, {
+    method: "POST",
+    headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        answer: answer,
+        userId: userId,
+        questionId: questionId,
+        rubric: rubric,
+        question: question,
+        caseDesc: caseDesc
+    })
+})
+
+if (res.ok) {
+    return await res.json() 
+} else {
+    return null
+}
+}
 
 // Mutations
 

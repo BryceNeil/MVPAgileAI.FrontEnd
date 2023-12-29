@@ -7,6 +7,7 @@ import { ThemeProvider } from './components/theme/ThemeContext';
 import { useRouter } from 'next/navigation';
 import { CaseProvider } from './props/CaseProvider';
 import { LoadProvider } from './props/LoadProvider';
+import { RubricProvider } from './props/RubricProvider';
 
 const queryClient = new QueryClient();
 
@@ -26,10 +27,12 @@ const Home: React.FC = () => {
       <ThemeProvider>
         <LoadProvider>
           <CaseProvider>
-            <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
-              <Navbar accessToken={accessToken}/>
-              <Body accessToken={accessToken}/>
-            </div>
+            <RubricProvider>
+              <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkestgray p-4">
+                <Navbar accessToken={accessToken}/>
+                <Body accessToken={accessToken}/>
+              </div>
+            </RubricProvider>
           </CaseProvider>
         </LoadProvider>
       </ThemeProvider>

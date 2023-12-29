@@ -1,29 +1,35 @@
 "use client"
-import { MessageType } from "@/app/types";
+import { MessageType, Rubric } from "@/app/types";
 import React, { useEffect, useRef, useState } from "react";
 import Message from "./Message"; // Adjust the import path if necessary
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
 import {fetchEventSource} from "@microsoft/fetch-event-source";
 import { API_URL } from "@/consts";
 
-import { getChatHistory } from "@/datafetch";
+import { evaluate, getChatHistory } from "@/datafetch";
 import { Send } from 'react-feather'; // Import the icon
+import { useRubric } from "@/app/props/RubricProvider";
+import { useCase } from "@/app/props/CaseProvider";
 
 interface InterviewBodyProps {
     questionId: string;
     userId: string;
     userInitial: string | undefined;
-    token: string | undefined
+    token: string | undefined;
 }
 
 const DEFAULT_MESSAGE = {from: "computer", text: "Hey, I'm Agile AI. Feel free to ask me questions and when your ready for your answer to be evaluated, start it with '/' and I'll give you feedback in the 'rubric' tab."}
 
 const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token, userInitial }) => {
     const [abortController, setAbortController] = useState(new AbortController());
+    const { isGraded, setIsGraded, setRubricData, rubricData } = useRubric();
+    const { caseData, currentQuestionIndex } = useCase();
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [messages, setMessages] = useState<MessageType[]>([DEFAULT_MESSAGE])
     const [answer, setAnswer] = useState<string>("");
-
+    const rubric = caseData.questions[currentQuestionIndex].rubric
+    const question = caseData.questions[currentQuestionIndex].question
+    const caseDesc = caseData.scenario
     const { data, refetch } = useQuery({
         queryKey: ["chat"],
         queryFn: async () => {
@@ -113,7 +119,29 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token
       };
 
       const handleSubmitAnswer = async () => {
-        
+        const resString = await evaluate(answer, userId, questionId, rubric, question, caseDesc);
+        const res = JSON.parse(resString);
+        if(res && res.grades){
+          const grades = res.grades
+          const updatedRubricData = rubricData.map((rubricItem: Rubric, ix: number) => {
+            // Modify the grade for each rubricData item
+            switch (ix) {
+                case 0:
+                    return { ...rubricItem, grade: grades[0]};
+                case 1:
+                    return { ...rubricItem, grade: grades[1]};
+                case 2:
+                    return { ...rubricItem, grade: grades[2]};
+                default:
+                    return rubricItem; // For other indices, keep the existing rubricItem
+            }
+        });
+        setRubricData(updatedRubricData);
+        }
+
+        const updatedIsGraded = [...isGraded]; // Create a copy of the array
+        updatedIsGraded[currentQuestionIndex] = true;
+        setIsGraded(updatedIsGraded);
       }
 
     return (
@@ -136,8 +164,8 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token
             <Send size={16} className="text-gray-600 dark:text-icongray mx-3" />
           </button>
         </div>
-        <button onClick={()=>{}} className="text-gray-800 dark:text-gray-100 mt-2">
-            Submit Answer
+        <button onClick={handleSubmitAnswer} className="text-gray-800 dark:text-gray-100 mt-2">
+            Evaluate Answer
         </button>
       </div>
     </div>

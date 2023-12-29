@@ -35,105 +35,239 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                     questions: [
                       {
                         questionNumber: 1,
-                        questionId: prevCase[0].question_id || '',
-                        question: prevCase[0].question || '',
-                        difficultyLevel: prevCase[0].difficultylevel || '',
+                        questionId: prevCase[0].question_ids[0] || '',
+                        question: prevCase[0].questions[0] || '',
+                        difficultyLevel: prevCase[0].difficulty_levels[0] || '',
                         framework: {
-                          overview: prevCase[0].fr_overview || '',
-                          steps: [{
-                              stepNumber: prevCase[0].step_number,
-                              description: prevCase[0].frame || '',
-                              details: prevCase[0].details || '',
+                          overview: prevCase[0].fr_overviews[0] || '',
+                          steps: [
+                            {
+                              stepNumber: 1,
+                              description: prevCase[0].framework_steps[0][1],
+                              details: prevCase[0].framework_steps[0][2]
+                            },
+                            {
+                              stepNumber: 2,
+                              description: prevCase[0].framework_steps[1][1],
+                              details: prevCase[0].framework_steps[1][2]
+                            },
+                            {
+                              stepNumber: 3,
+                              description: prevCase[0].framework_steps[2][1],
+                              details: prevCase[0].framework_steps[2][2]
+                            },
+
+                          ]
+                        },
+                        rubric: [
+                          {
+                            criterion: prevCase[0].rubric_criteria[0][0],
+                            description: prevCase[0].rubric_criteria[0][1],
+                            weight: prevCase[0].rubric_criteria[0][2],
+                            grade: prevCase[0].rubric_criteria[0][3]
                           },
                           {
-                            stepNumber: prevCase[1].step_number,
-                            description: prevCase[1].frame|| '',
-                            details: prevCase[1].details || '',
-                          }
-                        ]
-                        }
-                        
-                    },
-                    {
+                            criterion: prevCase[0].rubric_criteria[1][0],
+                            description: prevCase[0].rubric_criteria[1][1],
+                            weight: prevCase[0].rubric_criteria[1][2],
+                            grade: prevCase[0].rubric_criteria[1][3]
+                          },
+                          {
+                            criterion: prevCase[0].rubric_criteria[2][0],
+                            description: prevCase[0].rubric_criteria[2][1],
+                            weight: prevCase[0].rubric_criteria[2][2],
+                            grade: prevCase[0].rubric_criteria[2][3]
+                          },
+                        ] 
+                      },
+                      {
                         questionNumber: 2,
-                        questionId: prevCase[3].question_id || '',
-                        question: prevCase[3].question || '',
-                        difficultyLevel: prevCase[3].difficultylevel || '',
+                        questionId: prevCase[1].question_ids[0] || '',
+                        question: prevCase[1].questions[0] || '',
+                        difficultyLevel: prevCase[1].difficulty_levels[0] || '',
                         framework: {
-                          overview: prevCase[3].fr_overview || '',
-                          steps: [{
-                            stepNumber: prevCase[3].step_number,
-                            description: prevCase[3].frame || '',
-                            details: prevCase[3].details || '',
+                          overview: prevCase[1].fr_overviews[0] || '',
+                          steps: [
+                            {
+                              stepNumber: 1,
+                              description: prevCase[1].framework_steps[0][1],
+                              details: prevCase[1].framework_steps[0][2]
+                            },
+                            {
+                              stepNumber: 2,
+                              description: prevCase[1].framework_steps[1][1],
+                              details: prevCase[1].framework_steps[1][2]
+                            },
+                            {
+                              stepNumber: 3,
+                              description: prevCase[1].framework_steps[2][1],
+                              details: prevCase[1].framework_steps[2][2]
+                            },
+
+                          ]
+                        },
+                        rubric: [
+                          {
+                            criterion: prevCase[1].rubric_criteria[0][0],
+                            description: prevCase[1].rubric_criteria[0][1],
+                            weight: prevCase[1].rubric_criteria[0][2],
+                            grade: prevCase[1].rubric_criteria[0][3]
                           },
                           {
-                            stepNumber: prevCase[4].step_number,
-                            description: prevCase[4].frame || '',
-                            details: prevCase[4].details || '',
+                            criterion: prevCase[1].rubric_criteria[1][0],
+                            description: prevCase[1].rubric_criteria[1][1],
+                            weight: prevCase[1].rubric_criteria[1][2],
+                            grade: prevCase[1].rubric_criteria[1][3]
                           },
-                        ]
-                        }
-                    },
-                    {
+                          {
+                            criterion: prevCase[1].rubric_criteria[2][0],
+                            description: prevCase[1].rubric_criteria[2][1],
+                            weight: prevCase[1].rubric_criteria[2][2],
+                            grade: prevCase[1].rubric_criteria[2][3]
+                          },
+                        ] 
+                      },
+                      {
                         questionNumber: 3,
-                        questionId: prevCase[6].question_id || '',
-                        question: prevCase[6].question || '',
-                        difficultyLevel: prevCase[6].difficultylevel || '',
+                        questionId: prevCase[2].question_ids[0] || '',
+                        question: prevCase[2].questions[0] || '',
+                        difficultyLevel: prevCase[2].difficulty_levels[0] || '',
                         framework: {
-                          overview: prevCase[6].fr_overview || '',
-                          steps: [{
-                            stepNumber: prevCase[6].step_number,
-                            description: prevCase[6].frame || '',
-                            details: prevCase[6].details || '',
+                          overview: prevCase[2].fr_overviews[0] || '',
+                          steps: [
+                            {
+                              stepNumber: 1,
+                              description: prevCase[2].framework_steps[0][1],
+                              details: prevCase[2].framework_steps[0][2]
+                            },
+                            {
+                              stepNumber: 2,
+                              description: prevCase[2].framework_steps[1][1],
+                              details: prevCase[2].framework_steps[1][2]
+                            },
+                            {
+                              stepNumber: 3,
+                              description: prevCase[2].framework_steps[2][1],
+                              details: prevCase[2].framework_steps[2][2]
+                            },
+
+                          ]
+                        },
+                        rubric: [
+                          {
+                            criterion: prevCase[2].rubric_criteria[0][0],
+                            description: prevCase[2].rubric_criteria[0][1],
+                            weight: prevCase[2].rubric_criteria[0][2],
+                            grade: prevCase[2].rubric_criteria[0][3]
                           },
                           {
-                            stepNumber: prevCase[7].step_number,
-                            description: prevCase[7].frame || '',
-                            details: prevCase[7].details || '',
-                          }
-                        ]
-                        }
-                    },
-                    {
+                            criterion: prevCase[2].rubric_criteria[1][0],
+                            description: prevCase[2].rubric_criteria[1][1],
+                            weight: prevCase[2].rubric_criteria[1][2],
+                            grade: prevCase[2].rubric_criteria[1][3]
+                          },
+                          {
+                            criterion: prevCase[2].rubric_criteria[2][0],
+                            description: prevCase[2].rubric_criteria[2][1],
+                            weight: prevCase[2].rubric_criteria[2][2],
+                            grade: prevCase[2].rubric_criteria[2][3]
+                          },
+                        ] 
+                      },
+                      {
                         questionNumber: 4,
-                        questionId: prevCase[9].question_id || '',
-                        question: prevCase[9].question || '',
-                        difficultyLevel: prevCase[9].difficultylevel || '',
+                        questionId: prevCase[3].question_ids[0] || '',
+                        question: prevCase[3].questions[0] || '',
+                        difficultyLevel: prevCase[3].difficulty_levels[0] || '',
                         framework: {
-                          overview: prevCase[9].fr_overview || '',
-                          steps: [{
-                            stepNumber: prevCase[9].step_number,
-                            description: prevCase[9].frame || '',
-                            details: prevCase[9].details || '',
+                          overview: prevCase[3].fr_overviews[0] || '',
+                          steps: [
+                            {
+                              stepNumber: 1,
+                              description: prevCase[3].framework_steps[0][1],
+                              details: prevCase[3].framework_steps[0][2]
+                            },
+                            {
+                              stepNumber: 2,
+                              description: prevCase[3].framework_steps[1][1],
+                              details: prevCase[3].framework_steps[1][2]
+                            },
+                            {
+                              stepNumber: 3,
+                              description: prevCase[3].framework_steps[2][1],
+                              details: prevCase[3].framework_steps[2][2]
+                            },
+
+                          ]
+                        },
+                        rubric: [
+                          {
+                            criterion: prevCase[3].rubric_criteria[0][0],
+                            description: prevCase[3].rubric_criteria[0][1],
+                            weight: prevCase[3].rubric_criteria[0][2],
+                            grade: prevCase[3].rubric_criteria[0][3]
                           },
                           {
-                            stepNumber: prevCase[10].step_number,
-                            description: prevCase[10].frame || '',
-                            details: prevCase[10].details || '',
-                          }
-                        ]
-                        }
-                    },
-                    {
+                            criterion: prevCase[3].rubric_criteria[1][0],
+                            description: prevCase[3].rubric_criteria[1][1],
+                            weight: prevCase[3].rubric_criteria[1][2],
+                            grade: prevCase[3].rubric_criteria[1][3]
+                          },
+                          {
+                            criterion: prevCase[3].rubric_criteria[2][0],
+                            description: prevCase[3].rubric_criteria[2][1],
+                            weight: prevCase[3].rubric_criteria[2][2],
+                            grade: prevCase[3].rubric_criteria[2][3]
+                          },
+                        ] 
+                      },
+                      {
                         questionNumber: 5,
-                        questionId: prevCase[12].question_id || '',
-                        question: prevCase[12].question || '',
-                        difficultyLevel: prevCase[12].difficultylevel || '',
+                        questionId: prevCase[4].question_ids[0] || '',
+                        question: prevCase[4].questions[0] || '',
+                        difficultyLevel: prevCase[4].difficulty_levels[0] || '',
                         framework: {
-                          overview: prevCase[12].fr_overview || '',
-                          steps: [{
-                            stepNumber: prevCase[12].step_number,
-                            description: prevCase[12].frame || '',
-                            details: prevCase[12].details || '',
+                          overview: prevCase[4].fr_overviews[0] || '',
+                          steps: [
+                            {
+                              stepNumber: 1,
+                              description: prevCase[4].framework_steps[0][1],
+                              details: prevCase[4].framework_steps[0][2]
+                            },
+                            {
+                              stepNumber: 2,
+                              description: prevCase[4].framework_steps[1][1],
+                              details: prevCase[4].framework_steps[1][2]
+                            },
+                            {
+                              stepNumber: 3,
+                              description: prevCase[4].framework_steps[2][1],
+                              details: prevCase[4].framework_steps[2][2]
+                            },
+
+                          ]
+                        },
+                        rubric: [
+                          {
+                            criterion: prevCase[4].rubric_criteria[0][0],
+                            description: prevCase[4].rubric_criteria[0][1],
+                            weight: prevCase[4].rubric_criteria[0][2],
+                            grade: prevCase[4].rubric_criteria[0][3]
                           },
                           {
-                            stepNumber: prevCase[13].step_number,
-                            description: prevCase[13].frame || '',
-                            details: prevCase[13].details || '',
-                          }
-                        ]
-                        }
-                    },
+                            criterion: prevCase[4].rubric_criteria[1][0],
+                            description: prevCase[4].rubric_criteria[1][1],
+                            weight: prevCase[4].rubric_criteria[1][2],
+                            grade: prevCase[4].rubric_criteria[1][3]
+                          },
+                          {
+                            criterion: prevCase[4].rubric_criteria[2][0],
+                            description: prevCase[4].rubric_criteria[2][1],
+                            weight: prevCase[4].rubric_criteria[2][2],
+                            grade: prevCase[4].rubric_criteria[2][3]
+                          },
+                        ] 
+                      },
                     ]
                 };
 

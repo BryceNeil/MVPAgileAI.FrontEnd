@@ -16,8 +16,6 @@ const Interview: React.FC<InterviewProps> = ({authProfile, accessToken}) => {
     const [selectedBox, setSelectedBox] = useState<number | null>(null); // State to keep track of the selected box
     const [caseIndex, setCaseIndex] = useState(0);
     const { caseData, currentQuestionIndex} = useCase();
-
-    console.log(caseData)
     return (
         <div className="flex flex-col flex-grow" style={{ flexBasis: `${100 - leftSize}%` }}>
           {/* Box 3 */}

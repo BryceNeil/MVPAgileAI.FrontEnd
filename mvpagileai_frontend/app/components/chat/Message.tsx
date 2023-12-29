@@ -15,15 +15,13 @@ const Message: React.FC<MessageProps> = ({ from, text, initial }) => {
       <div className="mx-4">
         {from === 'user' ? (
           <div className="flex items-center justify-center cursor-pointer bg-blue-500 text-white rounded-full h-8 w-8">
-          <span className="font-medium text-white uppercase">{initial}</span>
-      </div>
+            <span className="font-medium text-white uppercase">{initial}</span>
+          </div>
         ):(
           <div>
             <img src={"/AgileAILogo4.svg"} alt="Logo" className="w-10 h-10" />
           </div>
           
-
-
         )}
         
       </div>

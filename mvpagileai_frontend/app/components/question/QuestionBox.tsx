@@ -18,7 +18,7 @@ const QuestionBox = ({
     return (
       <div className="bg-white dark:bg-darkgray rounded-lg flex flex-col relative flex-grow mt-4 px-4 h-full">
         {selectedView === 'problem' && <ProblemBlock currentCase={caseData} />}
-        {selectedView === 'rubric' && <RubricBlock />}
+        {selectedView === 'rubric' && <RubricBlock currentCase={caseData} />}
         {selectedView === 'framework' && <FrameworkBlock currentCase={caseData}/>}
       </div>
     );

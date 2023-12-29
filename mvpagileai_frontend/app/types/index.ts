@@ -30,15 +30,19 @@ export type Question = {
   question: string;
   difficultyLevel: string;
   relevantSkills: string[];
-  rubric: {
-      criterion: string;
-      description: string;
-      weight: number;
-  }[];
-  framework: {
-      overview: string;
-      steps: Step[]; // Assuming you have Step defined
-  };
+  rubric: Rubric[];
+  framework: Framework; 
+};
+export type Rubric = {
+  criterion: string;
+  description: string;
+  weight: number;
+  grade: number;
+}
+
+export type Framework = {
+  overview: string;
+  steps: Step[]; // Assuming you have Step defined
 };
 
 export type CaseData = {
