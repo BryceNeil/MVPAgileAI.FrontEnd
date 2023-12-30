@@ -270,7 +270,6 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                       },
                     ]
                 };
-
                 setCaseData(transformedData);
             } else {
                 console.log('No case data found');
@@ -304,6 +303,7 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
       if (caseData) {
         const ids = await enterCaseData(caseData, userId);
         const caseDataComp = updateDataWithIds(caseData, ids)
+
         setCaseData(caseDataComp);
       }
     } catch (error) {

@@ -23,7 +23,7 @@ const DEFAULT_MESSAGE = {from: "computer", text: "Hey, I'm Agile AI. Feel free t
 const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token, userInitial }) => {
     const [abortController, setAbortController] = useState(new AbortController());
     const { isGraded, setIsGraded, setRubricData, rubricData } = useRubric();
-    const { caseData, currentQuestionIndex } = useCase();
+    const { caseData, currentQuestionIndex, setCaseData } = useCase();
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [messages, setMessages] = useState<MessageType[]>([DEFAULT_MESSAGE])
     const [answer, setAnswer] = useState<string>("");
@@ -122,27 +122,23 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token
         const resString = await evaluate(answer, userId, questionId, rubric, question, caseDesc);
         const res = JSON.parse(resString);
         if(res && res.grades){
-          const grades = res.grades
-          const updatedRubricData = rubricData.map((rubricItem: Rubric, ix: number) => {
-            // Modify the grade for each rubricData item
-            switch (ix) {
-                case 0:
-                    return { ...rubricItem, grade: grades[0]};
-                case 1:
-                    return { ...rubricItem, grade: grades[1]};
-                case 2:
-                    return { ...rubricItem, grade: grades[2]};
-                default:
-                    return rubricItem; // For other indices, keep the existing rubricItem
+          const rubric = caseData.questions[currentQuestionIndex].rubric
+          const updatedRubric = rubric.map((item: Rubric, index: number) => {
+            if (index < res.grades.length) {
+              return { ...item, grade: res.grades[index] };
             }
-        });
-        setRubricData(updatedRubricData);
-        }
-
-        const updatedIsGraded = [...isGraded]; // Create a copy of the array
-        updatedIsGraded[currentQuestionIndex] = true;
-        setIsGraded(updatedIsGraded);
+            return item; // Keep the original rubric item if there's no corresponding grade
+          });
+          const newRubricData = [...rubricData]; // Create a copy of the rubricData
+          newRubricData[currentQuestionIndex] = updatedRubric;
+          const oldCaseData = [...caseData.questions]
+          oldCaseData[currentQuestionIndex].rubric = updatedRubric
+          const updatedCaseData = { ...caseData, questions: oldCaseData}
+          setCaseData(updatedCaseData)
+          setRubricData(newRubricData);
+          console.log(rubricData)
       }
+    }
 
     return (
     <div className="h-full flex flex-col justify-between w-full text-sm relative rounded-lg overflow-y-hidden">
