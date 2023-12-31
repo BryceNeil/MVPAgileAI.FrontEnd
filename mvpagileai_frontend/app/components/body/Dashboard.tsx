@@ -36,7 +36,7 @@ const Dashboard: React.FC<DashboardProps> = ({ accessToken, authProfile }) => {
     
         fetchCases();
         
-    }, []);
+    }, [authProfile.user_id]);
 
     console.log(pastCases)
     return(
@@ -76,7 +76,7 @@ const Dashboard: React.FC<DashboardProps> = ({ accessToken, authProfile }) => {
                             New Interview
                         </div>
                         <div className="text-sm">
-                            Enter a job title you'd like to practice interviewing for
+                            Enter a job title you would like to practice interviewing for
                         </div>
                         <div className="flex items-center mt-28 h-2">
                             <SearchInput userId={authProfile.user_id} height={12} iconSize={10}/>
