@@ -279,7 +279,7 @@ const CaseCard: React.FC<CaseCardProps> = ({title, caseId, userId}) => {
         onClick={fetchData}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}>
-            <div className="flex flex-row px-6 rounded-lg justify-between transition-all duration-300 items-center bg-gray-100 dark:hover:bg-darkestgray h-16 w-full">
+            <div className="flex flex-row px-6 rounded-lg justify-between transition-all duration-300 items-center bg-gray-100 dark:bg-darkestgray h-16 w-full">
                 <div>
                     {title}
                 </div>
