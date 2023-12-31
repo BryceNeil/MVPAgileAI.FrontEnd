@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCase } from '@/app/props/CaseProvider';
+import { useDashboard } from '@/app/props/DashboardProvider';
 
 const JobTitleDisplay = () => {
   const { caseData } = useCase(); // Access the global state
@@ -35,6 +36,7 @@ const JobTitleDisplay = () => {
   
   const [currentJobTitle, setCurrentJobTitle] = useState('');
   const [jobTitleIndex, setJobTitleIndex] = useState(0);
+  const {dashboardVisible} = useDashboard();
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -65,7 +67,12 @@ const JobTitleDisplay = () => {
 
   return (
     <h2 className={`w-full flex items-center h-8 py-0.5 px-2 text-sm rounded-md bg-semidarkgray text-white ${caseData?.jobTitle ? '' : ''}`}>
-      {caseData && caseData?.jobTitle || currentJobTitle}
+      {dashboardVisible ? (
+        <div>Dashboard</div>
+      ):(
+        <div>{caseData && caseData?.jobTitle || currentJobTitle}</div>
+      )}
+      
     </h2>
   );
 };

@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import Question from "./Question";
 import Interview from "./Interview";
 import { CaseProvider } from "@/app/props/CaseProvider";
+import { useDashboard } from "@/app/props/DashboardProvider";
+import Dashboard from "./Dashboard";
 
 interface BodyProps {
   accessToken: string | undefined,
@@ -38,6 +40,7 @@ const Body: React.FC<BodyProps> = ({accessToken}) => {
   const [bottomSize, setBottomSize] = useState(33); // Changed the initial valu to 33 for equal distribution
   const [isResizing, setIsResizing] = useState<number | null>(null);
   const [selectedId, setSelectedId] = useState(2);
+  const { dashboardVisible, setDashboardVisible} = useDashboard();
 
   const selectedWorkspace = mapIdToWorkspace(selectedId ?? 2);
 
@@ -56,6 +59,7 @@ const Body: React.FC<BodyProps> = ({accessToken}) => {
   };
   return (
       <div className="flex flex-grow p-0 overflow-hidden" onMouseMove={handleMouseMove} onMouseUp={() => setIsResizing(null)}>
+        { !dashboardVisible ? (
         <div className="flex flex-col lg:flex-row w-full flex-grow">
           <Question />
           {/* Resize handle */}
@@ -65,6 +69,11 @@ const Body: React.FC<BodyProps> = ({accessToken}) => {
           </div>
           <Interview authProfile={authProfile} accessToken={accessToken}/>
         </div>
+        ) : (
+          <div className="w-full h-[92vh]">
+            <Dashboard authProfile={authProfile} accessToken={accessToken}/>
+          </div>
+        )}
       </div>
   );
 };

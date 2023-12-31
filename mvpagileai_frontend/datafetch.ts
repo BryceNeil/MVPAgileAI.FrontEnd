@@ -128,6 +128,20 @@ export const fetchCaseData = async(userId?: string) => {
   
   return await response.json()
 }
+export const fetchCaseDataFromCaseId = async(caseId?: string, userId?: string) => {
+  const response = await fetch(`${API_URL}/content/find/casebyid`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({caseId: caseId, userId: userId})
+  })
+  if (!response.ok)
+    throw new Error('Failed to find case');
+  
+  return await response.json()
+}
 
 export const evaluate = async(answer: string, userId: string, questionId: string, rubric: Rubric[], question: string, caseDesc: string) => {
   const res = await fetch(`${API_URL}/content/evaluate`, {
@@ -144,12 +158,29 @@ export const evaluate = async(answer: string, userId: string, questionId: string
         question: question,
         caseDesc: caseDesc
     })
-})
+  })
 
-if (res.ok) {
-    return await res.json() 
+  if (res.ok) {
+      return await res.json() 
+  } else {
+      return null
+  }
+}
+export const getPastCases = async(user_id: string) => { 
+  const res = await fetch(`${API_URL}/content/getPast`, {
+    method: "POST",
+    headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        user_id
+    })
+  })
+  if (res.ok) {
+    return res.json() 
 } else {
-    return null
+    return []
 }
 }
 

@@ -47,7 +47,7 @@ const Navbar: React.FC<NavBarProps> = ({accessToken}) => {
                     </div>
 
                     <div className="flex items-center">
-                        <SearchInput userId={authProfile.user_id}/>
+                        <SearchInput userId={authProfile.user_id} height={8} iconSize={10}/>
                         
                         <div className={`w-px h-6 mx-3 ${theme === 'dark' ? 'bg-icongray' : 'bg-gray-300'}`}></div> 
                         <div className="hidden md:flex">

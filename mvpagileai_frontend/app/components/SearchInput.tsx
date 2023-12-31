@@ -5,16 +5,20 @@ import { useCase } from '../props/CaseProvider';
 import Loader from '@/app/components/Loader'
 import { useLoader } from '../props/LoadProvider';
 import { CaseData } from '../types';
+import { useDashboard } from '../props/DashboardProvider';
 
 interface SearchInputProps {
-  userId?: string
+  userId?: string,
+  height: number,
+  iconSize: number
 }
-const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
+const SearchInput: React.FC<SearchInputProps> = ({userId, height, iconSize}) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const { isLoading, setIsLoading } = useLoader();
   const inputRef = useRef<HTMLInputElement>(null);
-  const { setCaseData, caseData } = useCase()
+  const { setCaseData, caseData } = useCase();
+  const { setDashboardVisible } = useDashboard();
 
   const handleInputFocus = () => {
     setIsFocused(true);
@@ -25,9 +29,8 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
     const fetchData = async () => {
         try {
             const prevCase = await fetchCaseData(userId); // Wait for the promise to resolve
-            console.log(prevCase);
-
-            if (prevCase) {
+            console.log(prevCase)
+            if (prevCase !== null && prevCase !== undefined && prevCase.length > 1 ) {
                 const transformedData = {
                     jobTitle: prevCase[0].title || '',
                     scenario: prevCase[0].description || '',
@@ -273,7 +276,7 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
                 setCaseData(transformedData);
             } else {
                 console.log('No case data found');
-                // Handle the case when no data is found
+                setDashboardVisible(true)
             }
         } catch (error) {
             console.error('Error fetching case data:', error);
@@ -298,8 +301,10 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
 
   const handleSearchSubmit = async () => {
     setIsLoading(true); // Set loading to true when starting the search
+    setDashboardVisible(false)
     try {
       const caseData = await getCase(inputValue);
+      console.log(caseData)
       if (caseData) {
         const ids = await enterCaseData(caseData, userId);
         const caseDataComp = updateDataWithIds(caseData, ids)
@@ -324,7 +329,7 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
   
 
   return (
-    <div className="relative w-auto lg:w-72 rounded-md p-0.5 ml-2 bg-gray-200 dark:bg-semidarkgray cursor-pointer">
+    <div className={`relative w-auto lg:w-72 h-${height} flex flex-row rounded-md p-0.5 bg-gray-200 dark:bg-semidarkgray cursor-pointer`}>
       <input 
         ref={inputRef}
         type="text"
@@ -339,7 +344,7 @@ const SearchInput: React.FC<SearchInputProps> = ({userId}) => {
         <Search size={16} />
       </div>
       <button onClick={handleSearchSubmit} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-icongray" >
-        {isLoading ? <Loader size={15} /> : '\u2934'}
+        {isLoading && <Loader size={iconSize} />}
       </button>
     </div>
   );

@@ -4,6 +4,7 @@ import InterviewAILogo from "../chat/InterviewAILogo";
 import InterviewBody from "../chat/InterviewBody";
 import { User } from "@/app/types";
 import { useCase } from "@/app/props/CaseProvider";
+import { useLoader } from "@/app/props/LoadProvider";
 
 interface InterviewProps {
     authProfile: User
@@ -16,6 +17,7 @@ const Interview: React.FC<InterviewProps> = ({authProfile, accessToken}) => {
     const [selectedBox, setSelectedBox] = useState<number | null>(null); // State to keep track of the selected box
     const [caseIndex, setCaseIndex] = useState(0);
     const { caseData, currentQuestionIndex} = useCase();
+    const { isLoading } = useLoader();
     return (
         <div className="flex flex-col flex-grow" style={{ flexBasis: `${100 - leftSize}%` }}>
           {/* Box 3 */}
@@ -25,7 +27,7 @@ const Interview: React.FC<InterviewProps> = ({authProfile, accessToken}) => {
                 <InterviewAILogo />
               </div>
               <div className="h-[800px] p-0 w-full">
-                {caseData?.questions && caseData?.questions.length > 0 && authProfile ? (
+                {caseData?.questions && caseData?.questions.length > 0 && authProfile && !isLoading ? (
                   <InterviewBody
                     questionId={caseData.questions[currentQuestionIndex].questionId}
                     userId={authProfile.user_id}

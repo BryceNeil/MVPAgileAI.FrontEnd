@@ -136,7 +136,7 @@ const InterviewBody: React.FC<InterviewBodyProps> = ({ questionId, userId, token
           const updatedCaseData = { ...caseData, questions: oldCaseData}
           setCaseData(updatedCaseData)
           setRubricData(newRubricData);
-          console.log(rubricData)
+          setAnswer("");
       }
     }
 

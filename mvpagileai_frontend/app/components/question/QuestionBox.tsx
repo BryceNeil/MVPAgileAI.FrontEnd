@@ -14,7 +14,7 @@ const QuestionBox = ({
   const { setCurrentQuestionIndex, caseData, selectedView, setSelectedView} = useCase();
   const { isLoading } = useLoader();
 
-  if (caseData){
+  if (caseData && !isLoading){
     return (
       <div className="bg-white dark:bg-darkgray rounded-lg flex flex-col relative flex-grow mt-4 px-4 h-full">
         {selectedView === 'problem' && <ProblemBlock currentCase={caseData} />}
@@ -24,7 +24,7 @@ const QuestionBox = ({
     );
     } else{
       return(
-        <div className="bg-white dark:bg-darkgray text-black rounded-lg flex flex-col relative flex-grow mt-4 px-4 h-full">
+        <div className="bg-white dark:bg-darkgray text-black dark:text-white rounded-lg flex flex-col relative flex-grow mt-4 px-4 h-full">
           
           {isLoading ? (
             <div className="flex flex-col w-full pt-60 h-[60%] items-center">
